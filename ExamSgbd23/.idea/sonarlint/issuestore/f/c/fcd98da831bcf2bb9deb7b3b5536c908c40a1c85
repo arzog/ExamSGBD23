@@ -1,0 +1,10 @@
+
+r
+java:S3077"WUse a thread-safe type; adding "volatile" is not enough to make this field thread-safe.(Œê‹Õþÿÿÿÿ
+`
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(Œê‹Õþÿÿÿÿ
+B
+java:S3010"'Remove this assignment of "connection".(ªî³ñýÿÿÿÿ
+H
+java:S4925"-Remove this "Class.forName()", it is useless.(¹µÖÁüÿÿÿÿ
+U	java:S106"9Replace this use of System.out or System.err by a logger.(ö¥û©8•èÒ¦Ó0
