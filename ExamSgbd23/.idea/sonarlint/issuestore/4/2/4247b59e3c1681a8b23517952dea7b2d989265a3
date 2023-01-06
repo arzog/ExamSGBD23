@@ -1,0 +1,9 @@
+
+`	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+`	java:S112F"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+e
+java:S20954"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ùåø
+N	java:S106"9Replace this use of System.out or System.err by a logger.(Å„ê
+Z	java:S106C"9Replace this use of System.out or System.err by a logger.(÷Éœêıÿÿÿÿ8­‡÷§Ó0
+O
+java:S1135B"2Complete the task associated to this TODO comment.(´“™¬8İ ø§Ó0
