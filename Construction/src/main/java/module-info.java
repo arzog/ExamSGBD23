@@ -5,4 +5,6 @@ module exam.sgbd.construction {
 
     opens exam.sgbd.construction to javafx.fxml;
     exports exam.sgbd.construction;
+    exports exam.sgbd.construction.controller;
+    opens exam.sgbd.construction.controller to javafx.fxml;
 }

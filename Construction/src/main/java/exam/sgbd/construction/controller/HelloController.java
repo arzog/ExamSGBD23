@@ -1,4 +1,4 @@
-package exam.sgbd.construction;
+package exam.sgbd.construction.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
