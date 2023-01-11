@@ -4,4 +4,6 @@ module iramps.mvconstruction {
 
 	opens iramps.mvconstruction to javafx.fxml;
 	exports iramps.mvconstruction;
+	exports iramps.mvconstruction.controller;
+	opens iramps.mvconstruction.controller to javafx.fxml;
 }

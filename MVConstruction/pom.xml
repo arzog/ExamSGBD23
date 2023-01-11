@@ -60,7 +60,7 @@
 						<!-- Default configuration for running with: mvn clean javafx:run -->
 						<id>default-cli</id>
 						<configuration>
-							<mainClass>iramps.mvconstruction/iramps.mvconstruction.HelloApplication</mainClass>
+							<mainClass>iramps.mvconstruction/iramps.mvconstruction.Main</mainClass>
 							<launcher>app</launcher>
 							<jlinkZipName>app</jlinkZipName>
 							<jlinkImageName>app</jlinkImageName>
