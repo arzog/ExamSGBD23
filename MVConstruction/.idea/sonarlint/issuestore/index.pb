@@ -1,8 +1,4 @@
 
-o
-?src/main/java/iramps/mvconstruction/singleton/DBConnection.java,b/0/b0cb75922400f1ed3cb47b874caf42fb1561a86c
-j
-:src/main/java/iramps/mvconstruction/model/ListSelling.java,0/0/002cca6957eb4e9948f82f7ce6b4a85565196e99
 q
 Asrc/main/java/iramps/mvconstruction/dao/implement/ArticleDao.java,9/e/9e73ce3555efed0d0bd57b510d42adf497c39e07
 n
@@ -23,3 +19,5 @@ k
 0src/main/java/iramps/mvconstruction/dao/Dao.java,2/e/2e4e0fceb2378258985ec8a5eb94b6db3852dfaa
 r
 Bsrc/main/java/iramps/mvconstruction/controller/MainController.java,e\4\e4e47cfe151c433bf865d063509af13e048b5df4
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
