@@ -1,16 +1,6 @@
 
 o
 ?src/main/java/iramps/mvconstruction/singleton/DBConnection.java,b/0/b0cb75922400f1ed3cb47b874caf42fb1561a86c
-f
-6src/main/java/iramps/mvconstruction/model/Article.java,b/9/b9b5ade746b1b8e411c6fb2e7c5db2c9c0969456
-f
-6src/main/java/iramps/mvconstruction/model/Address.java,e/b/eb75a40fc35320a41fdf0a90f1315242d721b6a7
-c
-3src/main/java/iramps/mvconstruction/model/Bill.java,a/b/abd2c944518b5fe9de76df709d193f0d7b8d09cd
-e
-5src/main/java/iramps/mvconstruction/model/Client.java,b/6/b66a9b2cb54d114572184f3da1b23884b358ee98
-f
-6src/main/java/iramps/mvconstruction/model/Company.java,2/2/22ab4ee973dcb61954d22426b33e7b6f43893d6f
 j
 :src/main/java/iramps/mvconstruction/model/ListSelling.java,0/0/002cca6957eb4e9948f82f7ce6b4a85565196e99
 q
@@ -29,8 +19,6 @@ u
 Esrc/main/java/iramps/mvconstruction/dao/implement/ListSellingDao.java,7/4/7447c185728223ae70b001fac1c9238fab4f367c
 k
 ;src/main/java/iramps/mvconstruction/factory/DaoFactory.java,c/a/ca35fd535762e80ddf416ff77da96f28e9287bc3
-c
-3src/main/java/iramps/mvconstruction/model/User.java,1/4/14ff32c77191dc2ad786875b1380632b285c276c
 `
 0src/main/java/iramps/mvconstruction/dao/Dao.java,2/e/2e4e0fceb2378258985ec8a5eb94b6db3852dfaa
 r
