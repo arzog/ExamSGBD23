@@ -38,7 +38,7 @@ public class Main extends Application {
 
 	private void showConnection() {
 		try {
-			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/mgmt/bills.fxml"));
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/mgmt/clients.fxml"));
 			AnchorPane connectionView = loader.load();
 
 			root.setCenter(connectionView);
