@@ -1,6 +1,7 @@
 module exam.sgbd.construction {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens exam.sgbd.construction to javafx.fxml;

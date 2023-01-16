@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `construction`
+-- Base de données : `grossenstock`
 --
-CREATE DATABASE IF NOT EXISTS `construction` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `construction`;
+CREATE DATABASE IF NOT EXISTS `grossenstock` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `grossenstock`;
 
 -- --------------------------------------------------------
 
