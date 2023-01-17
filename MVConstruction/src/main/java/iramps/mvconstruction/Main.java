@@ -1,5 +1,6 @@
 package iramps.mvconstruction;
 
+import iramps.mvconstruction.singleton.DBConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,7 +18,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws IOException {
 		this.primary = stage;
-		this.primary.setTitle("connection");
+		this.primary.setTitle("Connection");
+		DBConnection.getInstance();
 
 		initRootLayout();
 		showConnection();
