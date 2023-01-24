@@ -1,5 +1,6 @@
 package iramps.mvconstruction.dao;
 
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -17,12 +18,17 @@ import java.util.List;
  */
 public abstract class Dao<T> {
 
+	protected Connection connection;
+
+	public Dao(Connection connection) {
+		this.connection = connection;
+	}
 	/**
 	 * method used to insert entries into the database
 	 * @param t Generic object changing according to the implementation
-	 * @return the created object
+	 * @return the creation's result
 	 */
-	protected abstract T create(T t);
+	protected abstract boolean create(T t);
 
 	/**
 	 * Read the entry corresponding to the given id
@@ -46,5 +52,12 @@ public abstract class Dao<T> {
 	 * @then the process is redirected to "create(T t)"
 	 */
 	protected abstract T updateById(T t);
+
+	/**
+	 * disable the entry corresponding to the id given by T t
+	 * @param t object used to get the id to disable
+	 * @return the removing's result
+	 */
+	protected abstract boolean deleteByObject(T t);
 
 }

@@ -9,25 +9,28 @@ public class Client {
 	private String mail;
 	private String phone;
 	private Address address;
+	private boolean isActive;
 	//endregion
 
 	//region constructors
 	public Client() {
 	}
-	public Client(String firstname, String lastname, String mail, String phone, Address address) {
+	public Client(String firstname, String lastname, String mail, String phone, Address address, boolean isActive) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.mail = mail;
 		this.phone = phone;
 		this.address = address;
+		this.isActive = isActive;
 	}
-	public Client(int id, String firstname, String lastname, String mail, String phone, Address address) {
+	public Client(int id, String firstname, String lastname, String mail, String phone, Address address, boolean isActive) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.mail = mail;
 		this.phone = phone;
 		this.address = address;
+		this.isActive = isActive;
 	}
 	//endregion
 
@@ -50,6 +53,9 @@ public class Client {
 	public Address getAddress() {
 		return address;
 	}
+	public boolean isActive() {
+		return isActive;
+	}
 	//endregion
 
 	//region setters
@@ -67,6 +73,9 @@ public class Client {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	public void setActive(boolean active) {
+		isActive = active;
 	}
 	//endregion
 }
