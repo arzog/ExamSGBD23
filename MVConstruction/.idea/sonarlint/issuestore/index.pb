@@ -1,24 +1,8 @@
 
-q
-Asrc/main/java/iramps/mvconstruction/dao/implement/ArticleDao.java,9/e/9e73ce3555efed0d0bd57b510d42adf497c39e07
-n
->src/main/java/iramps/mvconstruction/dao/implement/UserDao.java,4/c/4cf3d011787c2394e125649ab1a3757d80034164
-n
->src/main/java/iramps/mvconstruction/dao/implement/BillDao.java,7/c/7c425744c7a4eb7f717eb5142a95209ac56b2943
-p
-@src/main/java/iramps/mvconstruction/dao/implement/ClientDao.java,f/0/f07e2860b611ff736d253c494f7953f1d5e0743e
-q
-Asrc/main/java/iramps/mvconstruction/dao/implement/CompanyDao.java,0/3/036aeef34e3ed3af56075f18acadd5fbbaaedeea
-u
-Esrc/main/java/iramps/mvconstruction/dao/implement/ListSellingDao.java,7/4/7447c185728223ae70b001fac1c9238fab4f367c
-k
-;src/main/java/iramps/mvconstruction/factory/DaoFactory.java,c/a/ca35fd535762e80ddf416ff77da96f28e9287bc3
 r
 Bsrc/main/java/iramps/mvconstruction/controller/MainController.java,e\4\e4e47cfe151c433bf865d063509af13e048b5df4
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-f
-6src/main/java/iramps/mvconstruction/model/Address.java,e\b\eb75a40fc35320a41fdf0a90f1315242d721b6a7
 c
 3src/main/java/iramps/mvconstruction/model/Bill.java,a\b\abd2c944518b5fe9de76df709d193f0d7b8d09cd
 f
@@ -35,11 +19,5 @@ o
 -src/main/java/iramps/mvconstruction/Main.java,3\4\3406d6abebcdf15b37850cdc4036bcd0d3e8ab05
 f
 6src/main/java/iramps/mvconstruction/model/Article.java,b\9\b9b5ade746b1b8e411c6fb2e7c5db2c9c0969456
-r
-Bsrc/main/java/iramps/mvconstruction/exception/AddressNotFound.java,a\8\a8ea096bd60606d86f2ce983d5b7c724c57c6e5a
 e
 5src/main/java/iramps/mvconstruction/model/Client.java,b\6\b66a9b2cb54d114572184f3da1b23884b358ee98
-`
-0src/main/java/iramps/mvconstruction/dao/Dao.java,2\e\2e4e0fceb2378258985ec8a5eb94b6db3852dfaa
-q
-Asrc/main/java/iramps/mvconstruction/dao/implement/AddressDao.java,e\4\e428d618c62d3693d70359ce88891e71753ae205
