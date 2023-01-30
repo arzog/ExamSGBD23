@@ -1,6 +1,7 @@
 package iramps.mvconstruction.dao.implement;
 
 import iramps.mvconstruction.dao.Dao;
+import iramps.mvconstruction.exception.AddressNotFound;
 import iramps.mvconstruction.exception.ArticleNotFoundException;
 import iramps.mvconstruction.model.Article;
 
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 public class ArticleDao extends Dao<Article> {
 
@@ -21,8 +23,8 @@ public class ArticleDao extends Dao<Article> {
 			statement.setString(1, article.getLabel());
 			statement.setDouble(2, article.getPrice());
 			statement.setInt(3, article.getCurrentStock());
-			statement.setBoolean(5, article.isActive());
-			statement.setInt(4, article.getMinStock());
+			statement.setBoolean(4, article.isActive());
+			statement.setInt(5, article.getMinStock());
 
 			statement.executeUpdate();
 			statement.close();
@@ -52,14 +54,47 @@ public class ArticleDao extends Dao<Article> {
 	}
 	@Override
 	protected List<Article> readByName(String name) {
-		return null;
+		List<Article> articles = new ArrayList<>();
+		try {
+			PreparedStatement statement = connection.prepareStatement("select * from articles where label like ?");
+			statement.setString(1, name);
+
+			ResultSet set = statement.executeQuery();
+			while (set.next()) {
+				articles.add(new Article(set.getInt("id"), name, set.getDouble("price"), set.getInt("current_stock"), set.getInt("min_stock"), set.getBoolean("isActive")));
+			}
+			return articles;
+		} catch (SQLException e) {
+			throw new ArticleNotFoundException(e.getMessage());
+		}
 	}
 	@Override
 	protected Article updateById(Article article) {
-		return null;
+		try {
+			PreparedStatement statement = connection.prepareStatement("update articles set label = ?, price = ?, current_stock = ?, isActive = ?, min_stock = ? where id = ?");
+			statement.setString(1, article.getLabel());
+			statement.setDouble(2, article.getPrice());
+			statement.setInt(3, article.getCurrentStock());
+			statement.setBoolean(4, article.isActive());
+			statement.setInt(5, article.getMinStock());
+			statement.setInt(6, article.getId());
+
+			statement.executeUpdate();
+			return article;
+		} catch (SQLException e) {
+			throw new ArticleNotFoundException(e.getMessage());
+		}
 	}
 	@Override
 	protected boolean deleteByObject(Article article) {
-		return false;
+		try {
+			PreparedStatement statement = connection.prepareStatement("delete from articles where id = ?");
+			statement.setInt(1, article.getId());
+
+			statement.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			throw new ArticleNotFoundException(e.getMessage());
+		}
 	}
 }

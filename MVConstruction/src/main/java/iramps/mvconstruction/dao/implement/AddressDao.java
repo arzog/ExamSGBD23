@@ -76,19 +76,30 @@ public class AddressDao extends Dao<Address> {
 	@Override
 	protected Address updateById(Address address) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("update addresses " + "set country = ?, city  = ?, zip_code = ?, street = ?, number = ?");
+			PreparedStatement statement = connection.prepareStatement("update addresses " + "set country = ?, city  = ?, zip_code = ?, street = ?, number = ? where id = ?");
 			statement.setString(1, address.getCountry());
 			statement.setString(2, address.getCity());
 			statement.setInt(3, address.getZipCode());
 			statement.setString(4, address.getStreet());
 			statement.setString(5, address.getNumber());
+			statement.setInt(6, address.getId());
+
+			statement.executeUpdate();
+			return address;
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new AddressNotFound(e.getMessage());
 		}
-		return null;
 	}
 	@Override
 	protected boolean deleteByObject(Address address) {
-		return false;
+		try {
+			PreparedStatement statement = connection.prepareStatement("delete from addresses where id = ?");
+			statement.setInt(1, address.getId());
+
+			statement.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			throw new AddressNotFound(e.getMessage());
+		}
 	}
 }
