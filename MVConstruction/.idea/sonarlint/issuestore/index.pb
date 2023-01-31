@@ -15,12 +15,8 @@ o
 -src/main/java/iramps/mvconstruction/Main.java,3\4\3406d6abebcdf15b37850cdc4036bcd0d3e8ab05
 f
 6src/main/java/iramps/mvconstruction/model/Article.java,b\9\b9b5ade746b1b8e411c6fb2e7c5db2c9c0969456
-e
-5src/main/java/iramps/mvconstruction/model/Client.java,b\6\b66a9b2cb54d114572184f3da1b23884b358ee98
 k
 ;src/main/java/iramps/mvconstruction/factory/DaoFactory.java,c\a\ca35fd535762e80ddf416ff77da96f28e9287bc3
-p
-@src/main/java/iramps/mvconstruction/dao/implement/ClientDao.java,f\0\f07e2860b611ff736d253c494f7953f1d5e0743e
 q
 Asrc/main/java/iramps/mvconstruction/dao/implement/CompanyDao.java,0\3\036aeef34e3ed3af56075f18acadd5fbbaaedeea
 u
