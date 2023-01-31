@@ -21,7 +21,7 @@ public class CompanyDao extends Dao<Company> {
     @Override
     protected boolean create(Company company) {
         try {
-            PreparedStatement statement = connection.prepareStatement("insert into company(name,vat,mail,phone,isActive,id_address) values (?,?,?,?,?,?)");
+            PreparedStatement statement = connection.prepareStatement("insert into companies(name,vat,mail,phone,isActive,id_address) values (?,?,?,?,?,?)");
             statement.setString(1, company.getName());
             statement.setString(2, company.getVat());
             statement.setString(3, company.getMail());
@@ -41,7 +41,7 @@ public class CompanyDao extends Dao<Company> {
     @Override
     protected Company readById(int id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("select * from company where id = ?");
+            PreparedStatement statement = connection.prepareStatement("select * from companies where id = ?");
             statement.setInt(1, id);
 
             ResultSet set = statement.executeQuery();
@@ -69,7 +69,7 @@ public class CompanyDao extends Dao<Company> {
     protected List<Company> readByName(String name) {
         List<Company> companies = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("select * from company where name like ?");
+            PreparedStatement statement = connection.prepareStatement("select * from companies where name like ?");
             statement.setString(1, name);
 
             ResultSet set = statement.executeQuery();
@@ -93,13 +93,12 @@ public class CompanyDao extends Dao<Company> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     @Override
     protected Company updateById(Company company) {
         try {
-            PreparedStatement statement = connection.prepareStatement("update company set name = ?, vat = ?, mail = ?, phone = ?, isActive = ?, id_address = ? where id = ?");
+            PreparedStatement statement = connection.prepareStatement("update companies set name = ?, vat = ?, mail = ?, phone = ?, isActive = ?, id_address = ? where id = ?");
             statement.setString(1, company.getName());
             statement.setString(2, company.getVat());
             statement.setString(3, company.getMail());
@@ -121,7 +120,7 @@ public class CompanyDao extends Dao<Company> {
     @Override
     protected boolean deleteByObject(Company company) {
         try {
-            PreparedStatement statement = connection.prepareStatement("delete from company where id = ?");
+            PreparedStatement statement = connection.prepareStatement("delete from companies where id = ?");
             statement.setInt(1, company.getId());
 
             statement.executeUpdate();
