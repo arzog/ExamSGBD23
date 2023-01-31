@@ -1,7 +1,7 @@
 package iramps.mvconstruction.dao.implement;
 
 import iramps.mvconstruction.dao.Dao;
-import iramps.mvconstruction.exception.AddressNotFound;
+import iramps.mvconstruction.exception.AddressNotFoundException;
 import iramps.mvconstruction.model.Address;
 
 import java.sql.Connection;
@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 public class AddressDao extends Dao<Address> {
 
@@ -44,6 +43,7 @@ public class AddressDao extends Dao<Address> {
 			statement.setInt(1, id);
 
 			ResultSet set = statement.executeQuery();
+			statement.close();
 
 			if (set.first()) {
 				return new Address(set.getInt("id"), set.getString("country"), set.getString("city"), set.getInt("zip_code"), set.getString("street"), set.getString("number"));
@@ -51,7 +51,7 @@ public class AddressDao extends Dao<Address> {
 		} catch (SQLException e) {
 			System.out.println("An issue occured while searching address of whom id: " + id);
 			System.out.println(e.getMessage());
-			throw new AddressNotFound(e.getMessage());
+			throw new AddressNotFoundException(e.getMessage());
 		}
 		return null;
 	}
@@ -63,15 +63,16 @@ public class AddressDao extends Dao<Address> {
 			statement.setString(1, name);
 
 			ResultSet set = statement.executeQuery();
+			statement.close();
 			while (set.next()) {
 				addresses.add(new Address(set.getInt("id"), set.getString("country"), set.getString("city"), set.getInt("zip_code"), set.getString("street"), set.getString("number")));
 			}
+			return addresses;
 		} catch (SQLException e) {
 			System.out.println("An issue occured while searching addresses of whom name: " + name);
 			System.out.println(e.getMessage());
-			throw new AddressNotFound(e.getMessage());
+			throw new AddressNotFoundException(e.getMessage());
 		}
-		return Collections.emptyList();
 	}
 	@Override
 	protected Address updateById(Address address) {
@@ -85,9 +86,11 @@ public class AddressDao extends Dao<Address> {
 			statement.setInt(6, address.getId());
 
 			statement.executeUpdate();
+			statement.close();
+			System.out.println("Address successfully updated");
 			return address;
 		} catch (SQLException e) {
-			throw new AddressNotFound(e.getMessage());
+			throw new AddressNotFoundException(e.getMessage());
 		}
 	}
 	@Override
@@ -97,9 +100,11 @@ public class AddressDao extends Dao<Address> {
 			statement.setInt(1, address.getId());
 
 			statement.executeUpdate();
+			statement.close();
+			System.out.println("Address successfully deleted");
 			return true;
 		} catch (SQLException e) {
-			throw new AddressNotFound(e.getMessage());
+			throw new AddressNotFoundException(e.getMessage());
 		}
 	}
 }

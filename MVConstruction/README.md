@@ -12,7 +12,7 @@
 | factory            | DaoFactory     | TODO   |
 | dao                | Dao generic    | OK     |
 | dao implementation | AddressDao     | OK     |
-|                    | ArticleDao     | TODO   |
+|                    | ArticleDao     | OK     |
 |                    | BillDao        | TODO   |
 |                    | ClientDao      | TODO   |
 |                    | CompanyDao     | TODO   |

@@ -1,7 +1,6 @@
 package iramps.mvconstruction.dao.implement;
 
 import iramps.mvconstruction.dao.Dao;
-import iramps.mvconstruction.exception.AddressNotFound;
 import iramps.mvconstruction.exception.ArticleNotFoundException;
 import iramps.mvconstruction.model.Article;
 
@@ -48,6 +47,7 @@ public class ArticleDao extends Dao<Article> {
 				return new Article(id, set.getString("label"), set.getDouble("price"), set.getInt("current_stock"), set.getInt("min_stock"), set.getBoolean("isActive"));
 			}
 		} catch (SQLException e) {
+			System.out.println("An issue occured while creating the article");
 			throw new ArticleNotFoundException(e.getMessage());
 		}
 		return null;
@@ -65,6 +65,7 @@ public class ArticleDao extends Dao<Article> {
 			}
 			return articles;
 		} catch (SQLException e) {
+			System.out.println("An issue occured while creating the article");
 			throw new ArticleNotFoundException(e.getMessage());
 		}
 	}
@@ -80,8 +81,13 @@ public class ArticleDao extends Dao<Article> {
 			statement.setInt(6, article.getId());
 
 			statement.executeUpdate();
+
+			statement.close();
+			System.out.println("Article successfully updated");
+
 			return article;
 		} catch (SQLException e) {
+			System.out.println("An issue occured while creating the article");
 			throw new ArticleNotFoundException(e.getMessage());
 		}
 	}
@@ -92,8 +98,11 @@ public class ArticleDao extends Dao<Article> {
 			statement.setInt(1, article.getId());
 
 			statement.executeUpdate();
+			statement.close();
+			System.out.println("Article successfully deleted");
 			return true;
 		} catch (SQLException e) {
+			System.out.println("An issue occured while creating the article");
 			throw new ArticleNotFoundException(e.getMessage());
 		}
 	}
