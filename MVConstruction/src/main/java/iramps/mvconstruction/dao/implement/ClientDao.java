@@ -32,11 +32,11 @@ public class ClientDao extends Dao<Client> {
             statement.executeUpdate();
             statement.close();
             System.out.println("success");
+            return true;
         } catch (SQLException e) {
             //TODO define custom exception
             throw new RuntimeException(e);
         }
-        return false;
     }
 
     @Override

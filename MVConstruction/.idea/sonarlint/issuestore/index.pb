@@ -3,8 +3,6 @@ r
 Bsrc/main/java/iramps/mvconstruction/controller/MainController.java,e\4\e4e47cfe151c433bf865d063509af13e048b5df4
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-f
-6src/main/java/iramps/mvconstruction/model/Company.java,2\2\22ab4ee973dcb61954d22426b33e7b6f43893d6f
 c
 3src/main/java/iramps/mvconstruction/model/User.java,1\4\14ff32c77191dc2ad786875b1380632b285c276c
 N
@@ -17,8 +15,6 @@ f
 6src/main/java/iramps/mvconstruction/model/Article.java,b\9\b9b5ade746b1b8e411c6fb2e7c5db2c9c0969456
 k
 ;src/main/java/iramps/mvconstruction/factory/DaoFactory.java,c\a\ca35fd535762e80ddf416ff77da96f28e9287bc3
-q
-Asrc/main/java/iramps/mvconstruction/dao/implement/CompanyDao.java,0\3\036aeef34e3ed3af56075f18acadd5fbbaaedeea
 u
 Esrc/main/java/iramps/mvconstruction/dao/implement/ListSellingDao.java,7\4\7447c185728223ae70b001fac1c9238fab4f367c
 n
