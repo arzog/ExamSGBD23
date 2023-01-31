@@ -9,8 +9,6 @@ o
 ?src/main/java/iramps/mvconstruction/singleton/DBConnection.java,b\0\b0cb75922400f1ed3cb47b874caf42fb1561a86c
 ]
 -src/main/java/iramps/mvconstruction/Main.java,3\4\3406d6abebcdf15b37850cdc4036bcd0d3e8ab05
-f
-6src/main/java/iramps/mvconstruction/model/Article.java,b\9\b9b5ade746b1b8e411c6fb2e7c5db2c9c0969456
 k
 ;src/main/java/iramps/mvconstruction/factory/DaoFactory.java,c\a\ca35fd535762e80ddf416ff77da96f28e9287bc3
 `
