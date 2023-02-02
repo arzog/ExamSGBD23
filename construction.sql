@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 06 jan. 2023 à 12:33
+-- Généré le : jeu. 02 fév. 2023 à 18:33
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -26,27 +26,27 @@ USE `construction`;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `address`
+-- Structure de la table `addresses`
 --
 
-DROP TABLE IF EXISTS `address`;
-CREATE TABLE IF NOT EXISTS `address` (
+DROP TABLE IF EXISTS `addresses`;
+CREATE TABLE IF NOT EXISTS `addresses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `country` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
-  `zip_code` varchar(255) NOT NULL,
+  `zip_code` int(11) NOT NULL,
   `street` varchar(255) NOT NULL,
   `number` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `address`
+-- Déchargement des données de la table `addresses`
 --
 
-INSERT INTO `address` (`id`, `country`, `city`, `zip_code`, `street`, `number`) VALUES
-(1, 'Belgique', 'Braine-Le-Comte', '7090', 'Place des postes', '46/8'),
-(2, 'Belgique', 'Bois-d Haine', '7170', 'rue de la troupette', '11');
+INSERT INTO `addresses` (`id`, `country`, `city`, `zip_code`, `street`, `number`) VALUES
+(1, 'Belgique', 'Braine-Le-Comte', 7090, 'Place des postes', '46/8'),
+(2, 'Belgique', 'Bois-d Haine', 7170, 'rue de la troupette', '11');
 
 -- --------------------------------------------------------
 
@@ -59,8 +59,9 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `label` varchar(255) NOT NULL,
   `price` double NOT NULL,
-  `stock` int(11) NOT NULL,
+  `current_stock` int(11) NOT NULL,
   `isActive` tinyint(1) NOT NULL DEFAULT '1',
+  `min_stock` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
@@ -68,11 +69,11 @@ CREATE TABLE IF NOT EXISTS `articles` (
 -- Déchargement des données de la table `articles`
 --
 
-INSERT INTO `articles` (`id`, `label`, `price`, `stock`, `isActive`) VALUES
-(1, 'poutre 2m', 15.84, 5000, 1),
-(2, 'poutre 1m', 7.84, 5000, 1),
-(3, 'clous', 1, 5000, 1),
-(4, 'vis', 1, 5000, 1);
+INSERT INTO `articles` (`id`, `label`, `price`, `current_stock`, `isActive`, `min_stock`) VALUES
+(1, 'poutre 2m', 15.84, 5000, 1, 0),
+(2, 'poutre 1m', 7.84, 5000, 1, 0),
+(3, 'clous', 1, 5000, 1, 0),
+(4, 'vis', 1, 5000, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -84,12 +85,13 @@ DROP TABLE IF EXISTS `bills`;
 CREATE TABLE IF NOT EXISTS `bills` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sold_date` date NOT NULL,
-  `id_sold` int(11) NOT NULL,
+  `id_sold_items` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_client` int(11) DEFAULT NULL,
   `id_company` int(11) DEFAULT NULL,
+  `for_company` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `id_sold` (`id_sold`),
+  KEY `id_sold` (`id_sold_items`),
   KEY `id_user` (`id_user`),
   KEY `id_client` (`id_client`),
   KEY `id_company` (`id_company`)
@@ -99,8 +101,8 @@ CREATE TABLE IF NOT EXISTS `bills` (
 -- Déchargement des données de la table `bills`
 --
 
-INSERT INTO `bills` (`id`, `sold_date`, `id_sold`, `id_user`, `id_client`, `id_company`) VALUES
-(1, '2023-01-06', 1, 1, 1, NULL);
+INSERT INTO `bills` (`id`, `sold_date`, `id_sold_items`, `id_user`, `id_client`, `id_company`, `for_company`) VALUES
+(1, '2023-01-06', 1, 1, 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -116,6 +118,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `mail` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `id_address` int(11) NOT NULL,
+  `isActive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `id_address` (`id_address`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
@@ -124,9 +127,9 @@ CREATE TABLE IF NOT EXISTS `clients` (
 -- Déchargement des données de la table `clients`
 --
 
-INSERT INTO `clients` (`id`, `firstname`, `lastname`, `mail`, `phone`, `id_address`) VALUES
-(1, 'Brice', 'Beumier', 'brice.beumier@hotmail.fr', '+32 471 89 36 39', 1),
-(2, 'Rémi', 'Potvin', 'potvin.remi1@gmail.com', '+32 470 04 81 29', 2);
+INSERT INTO `clients` (`id`, `firstname`, `lastname`, `mail`, `phone`, `id_address`, `isActive`) VALUES
+(1, 'Brice', 'Beumier', 'brice.beumier@hotmail.fr', '+32 471 89 36 39', 1, 1),
+(2, 'Rémi', 'Potvin', 'potvin.remi1@gmail.com', '+32 470 04 81 29', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -157,11 +160,11 @@ INSERT INTO `companies` (`id`, `name`, `vat`, `mail`, `phone`, `isActive`, `id_a
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sold`
+-- Structure de la table `sold_items`
 --
 
-DROP TABLE IF EXISTS `sold`;
-CREATE TABLE IF NOT EXISTS `sold` (
+DROP TABLE IF EXISTS `sold_items`;
+CREATE TABLE IF NOT EXISTS `sold_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_article` int(11) NOT NULL,
   `qtt` int(11) NOT NULL,
@@ -171,10 +174,10 @@ CREATE TABLE IF NOT EXISTS `sold` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `sold`
+-- Déchargement des données de la table `sold_items`
 --
 
-INSERT INTO `sold` (`id`, `id_article`, `qtt`, `bill_num`) VALUES
+INSERT INTO `sold_items` (`id`, `id_article`, `qtt`, `bill_num`) VALUES
 (1, 1, 500, 'BeumierBrice_060123_0001'),
 (2, 2, 500, 'Wapiti&co_060123_0002');
 
@@ -210,7 +213,7 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `passwd`, `isAct
 -- Contraintes pour la table `bills`
 --
 ALTER TABLE `bills`
-  ADD CONSTRAINT `bills_ibfk_1` FOREIGN KEY (`id_sold`) REFERENCES `sold` (`id`),
+  ADD CONSTRAINT `bills_ibfk_1` FOREIGN KEY (`id_sold_items`) REFERENCES `sold_items` (`id`),
   ADD CONSTRAINT `bills_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `bills_ibfk_3` FOREIGN KEY (`id_client`) REFERENCES `clients` (`id`),
   ADD CONSTRAINT `bills_ibfk_4` FOREIGN KEY (`id_company`) REFERENCES `companies` (`id`);
@@ -219,19 +222,19 @@ ALTER TABLE `bills`
 -- Contraintes pour la table `clients`
 --
 ALTER TABLE `clients`
-  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`id_address`) REFERENCES `address` (`id`);
+  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`id_address`) REFERENCES `addresses` (`id`);
 
 --
 -- Contraintes pour la table `companies`
 --
 ALTER TABLE `companies`
-  ADD CONSTRAINT `companies_ibfk_1` FOREIGN KEY (`id_address`) REFERENCES `address` (`id`);
+  ADD CONSTRAINT `companies_ibfk_1` FOREIGN KEY (`id_address`) REFERENCES `addresses` (`id`);
 
 --
--- Contraintes pour la table `sold`
+-- Contraintes pour la table `sold_items`
 --
-ALTER TABLE `sold`
-  ADD CONSTRAINT `sold_ibfk_1` FOREIGN KEY (`id_article`) REFERENCES `articles` (`id`);
+ALTER TABLE `sold_items`
+  ADD CONSTRAINT `sold_items_ibfk_1` FOREIGN KEY (`id_article`) REFERENCES `articles` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
