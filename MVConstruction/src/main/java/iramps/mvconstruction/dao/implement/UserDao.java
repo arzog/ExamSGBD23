@@ -11,115 +11,100 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao extends Dao<User> {
-    public UserDao(Connection connection) {
-        super(connection);
-    }
 
-    @Override
-    protected boolean create(User user) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("insert into users(firstname,lastname,username,pswd,isActive) values (?,?,?,?,?)");
-            statement.setString(1, user.getFirstname());
-            statement.setString(2, user.getLastname());
-            statement.setString(3, user.getUsername());
-            statement.setString(4, user.getPswd());
-            statement.setBoolean(5, user.getActive());
+	public UserDao(Connection connection) {
+		super(connection);
+	}
 
-            statement.executeUpdate();
-            statement.close();
-            System.out.println("success");
-            return true;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+	@Override
+	protected boolean create(User user) {
+		try {
+			PreparedStatement statement = connection.prepareStatement("insert into users(firstname,lastname,username,pswd,isActive) values (?,?,?,?,?)");
+			statement.setString(1, user.getFirstname());
+			statement.setString(2, user.getLastname());
+			statement.setString(3, user.getUsername());
+			statement.setString(4, user.getPswd());
+			statement.setBoolean(5, user.getActive());
 
-    @Override
-    protected User readById(int id) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("select * from users where id = ?");
-            statement.setInt(1, id);
+			statement.executeUpdate();
+			statement.close();
+			System.out.println("success");
+			return true;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-            ResultSet set = statement.executeQuery();
-            statement.close();
+	@Override
+	protected User readById(int id) {
+		try {
+			PreparedStatement statement = connection.prepareStatement("select * from users where id = ?");
+			statement.setInt(1, id);
 
-            if (set.first()) {
-                return new User(
-                        id,
-                        set.getString("firstname"),
-                        set.getString("lastname"),
-                        set.getString("username"),
-                        set.getString("pswd"),
-                        set.getBoolean("isActive")
-                );
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return null;
-    }
+			ResultSet set = statement.executeQuery();
+			statement.close();
 
-    @Override
-    protected List<User> readByName(String name) {
-        List<User> users = new ArrayList<>();
-        try {
-            PreparedStatement statement = connection.prepareStatement("select * from users where name like ?");
-            statement.setString(1, name);
+			if (set.first()) {
+				return new User(id, set.getString("firstname"), set.getString("lastname"), set.getString("username"), set.getString("pswd"), set.getBoolean("isActive"));
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
 
-            ResultSet set = statement.executeQuery();
-            statement.close();
+	@Override
+	protected List<User> readByName(String name) {
+		List<User> users = new ArrayList<>();
+		try {
+			PreparedStatement statement = connection.prepareStatement("select * from users where name like ?");
+			statement.setString(1, name);
 
-            while (set.next()) {
-                users.add(
-                        new User(
-                                set.getInt("id"),
-                                set.getString("firstname"),
-                                name,
-                                set.getString("username"),
-                                set.getString("pswd"),
-                                set.getBoolean("isActive")
-                        )
-                );
-            }
-            System.out.println("success");
-            return users;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+			ResultSet set = statement.executeQuery();
+			statement.close();
 
-    @Override
-    protected User updateById(User user) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("update users set firstname = ?, lastname = ?, username = ?, pswd = ?, isActive = ? where id = ?");
-            statement.setString(1, user.getFirstname());
-            statement.setString(2, user.getLastname());
-            statement.setString(3, user.getUsername());
-            statement.setString(4, user.getPswd());
-            statement.setBoolean(5, user.getActive());
-            statement.setInt(6, user.getId());
+			while (set.next()) {
+				users.add(new User(set.getInt("id"), set.getString("firstname"), name, set.getString("username"), set.getString("pswd"), set.getBoolean("isActive")));
+			}
+			System.out.println("success");
+			return users;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-            statement.executeUpdate();
-            statement.close();
-            System.out.println("success");
-            return user;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+	@Override
+	protected User updateById(User user) {
+		try {
+			PreparedStatement statement = connection.prepareStatement("update users set firstname = ?, lastname = ?, username = ?, pswd = ?, isActive = ? where id = ?");
+			statement.setString(1, user.getFirstname());
+			statement.setString(2, user.getLastname());
+			statement.setString(3, user.getUsername());
+			statement.setString(4, user.getPswd());
+			statement.setBoolean(5, user.getActive());
+			statement.setInt(6, user.getId());
 
-    @Override
-    protected boolean deleteByObject(User user) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("delete from users where id = ?");
-            statement.setInt(1, user.getId());
+			statement.executeUpdate();
+			statement.close();
+			System.out.println("success");
+			return user;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-            statement.executeUpdate();
-            statement.close();
-            System.out.println("success");
-            return true;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+	@Override
+	protected boolean deleteByObject(User user) {
+		try {
+			PreparedStatement statement = connection.prepareStatement("delete from users where id = ?");
+			statement.setInt(1, user.getId());
+
+			statement.executeUpdate();
+			statement.close();
+			System.out.println("success");
+			return true;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
