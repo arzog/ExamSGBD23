@@ -17,9 +17,9 @@ public class UserDao extends Dao<User> {
 	}
 
 	@Override
-	protected boolean create(User user) {
+	public boolean create(User user) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("insert into users(firstname,lastname,username,pswd,isActive) values (?,?,?,?,?)");
+			PreparedStatement statement = connection.prepareStatement("insert into users(firstname,lastname,username,passwd,isActive) values (?,?,?,?,?)");
 			statement.setString(1, user.getFirstname());
 			statement.setString(2, user.getLastname());
 			statement.setString(3, user.getUsername());
@@ -36,7 +36,25 @@ public class UserDao extends Dao<User> {
 	}
 
 	@Override
-	protected User readById(int id) {
+	public List<User> readAll() {
+		List<User> users = new ArrayList<>();
+		try {
+			PreparedStatement statement = connection.prepareStatement("select * from users");
+
+			ResultSet set = statement.executeQuery();
+			statement.close();
+
+			while (set.next()) {
+				users.add(new User(set.getInt("id"), set.getString("firstname"), set.getString("lastname"), set.getString("username"), set.getString("pswd"), set.getBoolean("isActive")));
+			}
+			System.out.println("success");
+			return users;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	@Override
+	public User readById(int id) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("select * from users where id = ?");
 			statement.setInt(1, id);
@@ -54,10 +72,10 @@ public class UserDao extends Dao<User> {
 	}
 
 	@Override
-	protected List<User> readByName(String name) {
+	public List<User> readByName(String name) {
 		List<User> users = new ArrayList<>();
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from users where name like ?");
+			PreparedStatement statement = connection.prepareStatement("select * from users where lastname like ?");
 			statement.setString(1, name);
 
 			ResultSet set = statement.executeQuery();
@@ -74,9 +92,9 @@ public class UserDao extends Dao<User> {
 	}
 
 	@Override
-	protected User updateById(User user) {
+	public User updateById(User user) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("update users set firstname = ?, lastname = ?, username = ?, pswd = ?, isActive = ? where id = ?");
+			PreparedStatement statement = connection.prepareStatement("update users set firstname = ?, lastname = ?, username = ?, passwd = ?, isActive = ? where id = ?");
 			statement.setString(1, user.getFirstname());
 			statement.setString(2, user.getLastname());
 			statement.setString(3, user.getUsername());
@@ -94,7 +112,7 @@ public class UserDao extends Dao<User> {
 	}
 
 	@Override
-	protected boolean deleteByObject(User user) {
+	public boolean deleteByObject(User user) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("delete from users where id = ?");
 			statement.setInt(1, user.getId());

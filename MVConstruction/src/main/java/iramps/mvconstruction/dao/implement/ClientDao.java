@@ -19,7 +19,7 @@ public class ClientDao extends Dao<Client> {
 	}
 
 	@Override
-	protected boolean create(Client client) {
+	public boolean create(Client client) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("insert into clients(firstname,lastname,mail,phone,id_address,isActive) values (?,?,?,?,?,?)");
 			statement.setString(1, client.getFirstname());
@@ -40,7 +40,25 @@ public class ClientDao extends Dao<Client> {
 	}
 
 	@Override
-	protected Client readById(int id) {
+	public List<Client> readAll() {
+		List<Client> clients = new ArrayList<>();
+		try {
+			PreparedStatement statement = connection.prepareStatement("select * from clients");
+
+			ResultSet set = statement.executeQuery();
+			statement.close();
+
+			while (set.next()) {
+				clients.add(new Client(set.getInt("id"), set.getString("firstname"), set.getString("lastname"), set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")), set.getBoolean("isActive")));
+			}
+			System.out.println("success");
+			return clients;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	@Override
+	public Client readById(int id) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("select * from clients where id = ?");
 			statement.setInt(1, id);
@@ -60,7 +78,7 @@ public class ClientDao extends Dao<Client> {
 	}
 
 	@Override
-	protected List<Client> readByName(String name) {
+	public List<Client> readByName(String name) {
 		List<Client> clients = new ArrayList<>();
 		try {
 			PreparedStatement statement = connection.prepareStatement("select * from clients where lastname like ?");
@@ -80,7 +98,7 @@ public class ClientDao extends Dao<Client> {
 	}
 
 	@Override
-	protected Client updateById(Client client) {
+	public Client updateById(Client client) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("update clients set firstname = ?, lastname = ?, mail = ?, phone = ?, id_address = ?, isActive = ? where id = ?");
 			statement.setString(1, client.getFirstname());
@@ -102,7 +120,7 @@ public class ClientDao extends Dao<Client> {
 	}
 
 	@Override
-	protected boolean deleteByObject(Client client) {
+	public boolean deleteByObject(Client client) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("delete from clients where id = ?");
 			statement.setInt(1, client.getId());

@@ -22,7 +22,7 @@ public class SoldItemsDao extends Dao<SoldItems> {
 	}
 
 	@Override
-	protected boolean create(SoldItems soldItems) {
+	public boolean create(SoldItems soldItems) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("insert into sold_items(id_article,qtt,bill_num) values (?,?,?)");
 			soldItems.getItemCart().forEach((item, quantity) -> {
@@ -46,7 +46,26 @@ public class SoldItemsDao extends Dao<SoldItems> {
 	}
 
 	@Override
-	protected SoldItems readById(int id) {
+	public List<SoldItems> readAll() {
+		try {
+			List<SoldItems> items = new ArrayList<>();
+			PreparedStatement statement = connection.prepareStatement("select * from sold_items");
+
+			ResultSet set = statement.executeQuery();
+			statement.close();
+
+			while (set.next()) {
+				Article article = dao.readById(set.getInt("id_article"));
+				items.add(new SoldItems(set.getString("bill_num"), Map.of(article, set.getInt("qtt"))));
+			}
+			System.out.println("success");
+			return items;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	@Override
+	public SoldItems readById(int id) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("select * from sold_items where id = ?");
 			statement.setInt(1, id);
@@ -66,7 +85,7 @@ public class SoldItemsDao extends Dao<SoldItems> {
 	}
 
 	@Override
-	protected List<SoldItems> readByName(String name) {
+	public List<SoldItems> readByName(String name) {
 		try {
 			List<SoldItems> items = new ArrayList<>();
 			PreparedStatement statement = connection.prepareStatement("select * from sold_items where bill_num like ?");
@@ -87,7 +106,7 @@ public class SoldItemsDao extends Dao<SoldItems> {
 	}
 
 	@Override
-	protected SoldItems updateById(SoldItems soldItems) {
+	public SoldItems updateById(SoldItems soldItems) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("update sold_items set id_article = ?, qtt = ? where id = ?");
 			soldItems.getItemCart().forEach((item, qtt) -> {
@@ -111,7 +130,7 @@ public class SoldItemsDao extends Dao<SoldItems> {
 	}
 
 	@Override
-	protected boolean deleteByObject(SoldItems soldItems) {
+	public boolean deleteByObject(SoldItems soldItems) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("delete from sold_items where id = ?");
 			statement.setInt(1, soldItems.getId());

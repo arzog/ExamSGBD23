@@ -16,7 +16,7 @@ public class ArticleDao extends Dao<Article> {
 		super(connection);
 	}
 	@Override
-	protected boolean create(Article article) {
+	public boolean create(Article article) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("insert into articles(label, price, current_stock, isActive, min_stock) " + "values (?,?,?,?,?)");
 			statement.setString(1, article.getLabel());
@@ -36,7 +36,7 @@ public class ArticleDao extends Dao<Article> {
 		}
 	}
 	@Override
-	protected Article readById(int id) {
+	public Article readById(int id) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("select * from articles where id=?");
 			statement.setInt(1, id);
@@ -52,8 +52,25 @@ public class ArticleDao extends Dao<Article> {
 		}
 		return null;
 	}
+
 	@Override
-	protected List<Article> readByName(String name) {
+	public List<Article> readAll() {
+		List<Article> articles = new ArrayList<>();
+		try {
+			PreparedStatement statement = connection.prepareStatement("select * from articles");
+
+			ResultSet set = statement.executeQuery();
+			while (set.next()) {
+				articles.add(new Article(set.getInt("id"), set.getString("label"), set.getDouble("price"), set.getInt("current_stock"), set.getInt("min_stock"), set.getBoolean("isActive")));
+			}
+			return articles;
+		} catch (SQLException e) {
+			System.out.println("An issue occured while creating the article");
+			throw new ArticleNotFoundException(e.getMessage());
+		}
+	}
+	@Override
+	public List<Article> readByName(String name) {
 		List<Article> articles = new ArrayList<>();
 		try {
 			PreparedStatement statement = connection.prepareStatement("select * from articles where label like ?");
@@ -69,8 +86,9 @@ public class ArticleDao extends Dao<Article> {
 			throw new ArticleNotFoundException(e.getMessage());
 		}
 	}
+
 	@Override
-	protected Article updateById(Article article) {
+	public Article updateById(Article article) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("update articles set label = ?, price = ?, current_stock = ?, isActive = ?, min_stock = ? where id = ?");
 			statement.setString(1, article.getLabel());
@@ -92,7 +110,7 @@ public class ArticleDao extends Dao<Article> {
 		}
 	}
 	@Override
-	protected boolean deleteByObject(Article article) {
+	public boolean deleteByObject(Article article) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("delete from articles where id = ?");
 			statement.setInt(1, article.getId());

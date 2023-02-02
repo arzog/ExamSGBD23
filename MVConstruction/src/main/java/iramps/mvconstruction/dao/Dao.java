@@ -18,18 +18,25 @@ import java.util.List;
  */
 public abstract class Dao<T> {
 
-	protected Connection connection;
+	public Connection connection;
 
 	public Dao(Connection connection) {
 		this.connection = connection;
 	}
+
 	/**
 	 * method used to insert entries into the database
 	 *
 	 * @param t Generic object changing according to the implementation
 	 * @return the creation's result
 	 */
-	protected abstract boolean create(T t);
+	public abstract boolean create(T t);
+	/**
+	 * Read all the entries
+	 *
+	 * @return the entry linked to the given id
+	 */
+	public abstract List<T> readAll();
 
 	/**
 	 * Read the entry corresponding to the given id
@@ -37,7 +44,7 @@ public abstract class Dao<T> {
 	 * @param id auto-incremented integer
 	 * @return the entry linked to the given id
 	 */
-	protected abstract T readById(int id);
+	public abstract T readById(int id);
 
 	/**
 	 * Read the entries corresponding to the given name or label
@@ -45,7 +52,7 @@ public abstract class Dao<T> {
 	 * @param name string used to name a person or an article
 	 * @return a list of objects matching the name
 	 */
-	protected abstract List<T> readByName(String name);
+	public abstract List<T> readByName(String name);
 
 	/**
 	 * Update the entry corresponding to the id of the given object
@@ -55,7 +62,7 @@ public abstract class Dao<T> {
 	 * @if the entry doesn't exist in the database
 	 * @then the process is redirected to "create(T t)"
 	 */
-	protected abstract T updateById(T t);
+	public abstract T updateById(T t);
 
 	/**
 	 * disable the entry corresponding to the id given by T t
@@ -63,6 +70,6 @@ public abstract class Dao<T> {
 	 * @param t object used to get the id to disable
 	 * @return the removing's result
 	 */
-	protected abstract boolean deleteByObject(T t);
+	public abstract boolean deleteByObject(T t);
 
 }

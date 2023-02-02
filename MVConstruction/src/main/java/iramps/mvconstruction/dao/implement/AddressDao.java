@@ -17,7 +17,7 @@ public class AddressDao extends Dao<Address> {
 		super(connection);
 	}
 	@Override
-	protected boolean create(Address address) {
+	public boolean create(Address address) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("insert into addresses(country, city, zip_code, street, number) " + "values (?,?,?,?,?)");
 			statement.setString(1, address.getCountry());
@@ -36,8 +36,26 @@ public class AddressDao extends Dao<Address> {
 			return false;
 		}
 	}
+
 	@Override
-	protected Address readById(int id) {
+	public List<Address> readAll() {
+		try {
+			List<Address> addresses = new ArrayList<>();
+			PreparedStatement statement = connection.prepareStatement("select * from addresses");
+
+			ResultSet set = statement.executeQuery();
+			statement.close();
+			while (set.next()) {
+				addresses.add(new Address(set.getInt("id"), set.getString("country"), set.getString("city"), set.getInt("zip_code"), set.getString("street"), set.getString("number")));
+			}
+			return addresses;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new AddressNotFoundException(e.getMessage());
+		}
+	}
+	@Override
+	public Address readById(int id) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("select * " + "from addresses " + "where id = ?");
 			statement.setInt(1, id);
@@ -56,7 +74,7 @@ public class AddressDao extends Dao<Address> {
 		return null;
 	}
 	@Override
-	protected List<Address> readByName(String name) {
+	public List<Address> readByName(String name) {
 		try {
 			List<Address> addresses = new ArrayList<>();
 			PreparedStatement statement = connection.prepareStatement("select * " + "from addresses " + "where country like ?");
@@ -75,7 +93,7 @@ public class AddressDao extends Dao<Address> {
 		}
 	}
 	@Override
-	protected Address updateById(Address address) {
+	public Address updateById(Address address) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("update addresses " + "set country = ?, city  = ?, zip_code = ?, street = ?, number = ? where id = ?");
 			statement.setString(1, address.getCountry());
@@ -94,7 +112,7 @@ public class AddressDao extends Dao<Address> {
 		}
 	}
 	@Override
-	protected boolean deleteByObject(Address address) {
+	public boolean deleteByObject(Address address) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("delete from addresses where id = ?");
 			statement.setInt(1, address.getId());
