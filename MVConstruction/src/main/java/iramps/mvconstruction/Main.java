@@ -1,6 +1,6 @@
 package iramps.mvconstruction;
 
-import iramps.mvconstruction.controller.HomeController;
+import iramps.mvconstruction.controller.ConnectionController;
 import iramps.mvconstruction.singleton.DBConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -41,18 +41,21 @@ public class Main extends Application {
 
 	private void showConnection() {
 		try {
-			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/mgmt/connection.fxml"));
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/connection.fxml"));
 			AnchorPane connectionView = loader.load();
 
 			root.setCenter(connectionView);
 
-			HomeController controller = loader.getController();
+			ConnectionController controller = loader.getController();
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
+	public BorderPane getRoot() {
+		return root;
+	}
 	public static void main(String[] args) {
 		launch();
 	}

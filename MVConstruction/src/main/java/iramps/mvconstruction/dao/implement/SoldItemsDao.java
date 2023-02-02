@@ -85,7 +85,7 @@ public class SoldItemsDao extends Dao<SoldItems> {
 	}
 
 	@Override
-	public List<SoldItems> readByName(String name) {
+	public SoldItems readByName(String name) {
 		try {
 			List<SoldItems> items = new ArrayList<>();
 			PreparedStatement statement = connection.prepareStatement("select * from sold_items where bill_num like ?");
@@ -94,15 +94,15 @@ public class SoldItemsDao extends Dao<SoldItems> {
 			ResultSet set = statement.executeQuery();
 			statement.close();
 
-			while (set.next()) {
+			if (set.first()) {
 				Article article = dao.readById(set.getInt("id_article"));
-				items.add(new SoldItems(set.getString("bill_num"), Map.of(article, set.getInt("qtt"))));
+				return new SoldItems(set.getString("bill_num"), Map.of(article, set.getInt("qtt")));
 			}
 			System.out.println("success");
-			return items;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+		return null;
 	}
 
 	@Override

@@ -78,8 +78,7 @@ public class ClientDao extends Dao<Client> {
 	}
 
 	@Override
-	public List<Client> readByName(String name) {
-		List<Client> clients = new ArrayList<>();
+	public Client readByName(String name) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("select * from clients where lastname like ?");
 			statement.setString(1, name);
@@ -87,14 +86,14 @@ public class ClientDao extends Dao<Client> {
 			ResultSet set = statement.executeQuery();
 			statement.close();
 
-			while (set.next()) {
-				clients.add(new Client(set.getInt("id"), set.getString("firstname"), name, set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")), set.getBoolean("isActive")));
+			if (set.first()) {
+				return new Client(set.getInt("id"), set.getString("firstname"), name, set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")), set.getBoolean("isActive"));
 			}
 			System.out.println("success");
-			return clients;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+		return null;
 	}
 
 	@Override

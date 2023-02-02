@@ -70,21 +70,20 @@ public class ArticleDao extends Dao<Article> {
 		}
 	}
 	@Override
-	public List<Article> readByName(String name) {
-		List<Article> articles = new ArrayList<>();
+	public Article readByName(String name) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("select * from articles where label like ?");
 			statement.setString(1, name);
 
 			ResultSet set = statement.executeQuery();
-			while (set.next()) {
-				articles.add(new Article(set.getInt("id"), name, set.getDouble("price"), set.getInt("current_stock"), set.getInt("min_stock"), set.getBoolean("isActive")));
+			if (set.first()) {
+				return new Article(set.getInt("id"), name, set.getDouble("price"), set.getInt("current_stock"), set.getInt("min_stock"), set.getBoolean("isActive"));
 			}
-			return articles;
 		} catch (SQLException e) {
 			System.out.println("An issue occured while creating the article");
 			throw new ArticleNotFoundException(e.getMessage());
 		}
+		return null;
 	}
 
 	@Override

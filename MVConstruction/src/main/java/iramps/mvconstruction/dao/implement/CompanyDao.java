@@ -76,8 +76,7 @@ public class CompanyDao extends Dao<Company> {
 	}
 
 	@Override
-	public List<Company> readByName(String name) {
-		List<Company> companies = new ArrayList<>();
+	public Company readByName(String name) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("select * from companies where name like ?");
 			statement.setString(1, name);
@@ -85,14 +84,14 @@ public class CompanyDao extends Dao<Company> {
 			ResultSet set = statement.executeQuery();
 			statement.close();
 
-			while (set.next()) {
-				companies.add(new Company(set.getInt("id"), name, set.getString("vat"), set.getString("mail"), set.getString("phone"), set.getBoolean("isActive"), address.readById(set.getInt("id_address"))));
+			if (set.first()) {
+				return new Company(set.getInt("id"), name, set.getString("vat"), set.getString("mail"), set.getString("phone"), set.getBoolean("isActive"), address.readById(set.getInt("id_address")));
 			}
 			System.out.println("success");
-			return companies;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+		return null;
 	}
 
 	@Override

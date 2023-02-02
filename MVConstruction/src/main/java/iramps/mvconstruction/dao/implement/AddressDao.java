@@ -74,23 +74,22 @@ public class AddressDao extends Dao<Address> {
 		return null;
 	}
 	@Override
-	public List<Address> readByName(String name) {
+	public Address readByName(String name) {
 		try {
-			List<Address> addresses = new ArrayList<>();
 			PreparedStatement statement = connection.prepareStatement("select * " + "from addresses " + "where country like ?");
 			statement.setString(1, name);
 
 			ResultSet set = statement.executeQuery();
 			statement.close();
-			while (set.next()) {
-				addresses.add(new Address(set.getInt("id"), set.getString("country"), set.getString("city"), set.getInt("zip_code"), set.getString("street"), set.getString("number")));
+			if (set.first()) {
+				return new Address(set.getInt("id"), set.getString("country"), set.getString("city"), set.getInt("zip_code"), set.getString("street"), set.getString("number"));
 			}
-			return addresses;
 		} catch (SQLException e) {
 			System.out.println("An issue occured while searching addresses of whom name: " + name);
 			System.out.println(e.getMessage());
 			throw new AddressNotFoundException(e.getMessage());
 		}
+		return null;
 	}
 	@Override
 	public Address updateById(Address address) {

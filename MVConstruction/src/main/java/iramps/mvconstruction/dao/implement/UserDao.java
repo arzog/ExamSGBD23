@@ -45,7 +45,7 @@ public class UserDao extends Dao<User> {
 			statement.close();
 
 			while (set.next()) {
-				users.add(new User(set.getInt("id"), set.getString("firstname"), set.getString("lastname"), set.getString("username"), set.getString("pswd"), set.getBoolean("isActive")));
+				users.add(new User(set.getInt("id"), set.getString("firstname"), set.getString("lastname"), set.getString("username"), set.getString("passwd"), set.getBoolean("isActive")));
 			}
 			System.out.println("success");
 			return users;
@@ -63,7 +63,7 @@ public class UserDao extends Dao<User> {
 			statement.close();
 
 			if (set.first()) {
-				return new User(id, set.getString("firstname"), set.getString("lastname"), set.getString("username"), set.getString("pswd"), set.getBoolean("isActive"));
+				return new User(id, set.getString("firstname"), set.getString("lastname"), set.getString("username"), set.getString("passwd"), set.getBoolean("isActive"));
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -72,23 +72,21 @@ public class UserDao extends Dao<User> {
 	}
 
 	@Override
-	public List<User> readByName(String name) {
-		List<User> users = new ArrayList<>();
+	public User readByName(String name) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from users where lastname like ?");
+			PreparedStatement statement = connection.prepareStatement("select * from users where username like ?");
 			statement.setString(1, name);
 
 			ResultSet set = statement.executeQuery();
-			statement.close();
 
-			while (set.next()) {
-				users.add(new User(set.getInt("id"), set.getString("firstname"), name, set.getString("username"), set.getString("pswd"), set.getBoolean("isActive")));
+			if (set.next()) {
+				return new User(set.getInt("id"), set.getString("firstname"), name, set.getString("username"), set.getString("passwd"), set.getBoolean("isActive"));
 			}
 			System.out.println("success");
-			return users;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+		return null;
 	}
 
 	@Override

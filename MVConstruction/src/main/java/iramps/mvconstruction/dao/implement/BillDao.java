@@ -94,7 +94,7 @@ public class BillDao extends Dao<Bill> {
 	}
 
 	@Override
-	public List<Bill> readByName(String name) {
+	public Bill readByName(String name) {
 		return null;
 	}
 

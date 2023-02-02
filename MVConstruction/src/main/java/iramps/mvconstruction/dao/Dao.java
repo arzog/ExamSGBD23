@@ -52,7 +52,7 @@ public abstract class Dao<T> {
 	 * @param name string used to name a person or an article
 	 * @return a list of objects matching the name
 	 */
-	public abstract List<T> readByName(String name);
+	public abstract T readByName(String name);
 
 	/**
 	 * Update the entry corresponding to the id of the given object
