@@ -1,6 +1,6 @@
 package iramps.mvconstruction.model;
 
-import java.util.Date;
+import java.sql.Date;
 public class Bill {
 
 	//region properties
@@ -10,26 +10,50 @@ public class Bill {
 	private User seller;
 	private Client client;
 	private Company company;
+	private boolean forCompany;
 	//endregion
 
 	//region constructors
 	public Bill() {
 	}
-	public Bill(Date soldDate, SoldItems items, User seller, Client client, Company company) {
+	public Bill(Date soldDate, SoldItems items, User seller, Client client, Company company, boolean forCompany) {
 		this.soldDate = soldDate;
 		this.items = items;
 		this.seller = seller;
 		this.client = client;
 		this.company = company;
+		this.forCompany = forCompany;
 	}
-	public Bill(int id, Date soldDate, SoldItems items, User seller, Client client, Company company) {
+	public Bill(int id, Date soldDate, SoldItems items, User seller, Client client, Company company, boolean forCompany) {
 		this.id = id;
 		this.soldDate = soldDate;
 		this.items = items;
 		this.seller = seller;
 		this.client = client;
 		this.company = company;
+		this.forCompany = forCompany;
 	}
+
+	// constructor for client
+	public Bill(int id, Date soldDate, SoldItems items, User seller, Client client, boolean forCompany) {
+		this.id = id;
+		this.soldDate = soldDate;
+		this.items = items;
+		this.seller = seller;
+		this.client = client;
+		this.forCompany = forCompany;
+	}
+
+	//constructor for company
+	public Bill(int id, Date soldDate, SoldItems items, User seller, Company company, boolean forCompany) {
+		this.id = id;
+		this.soldDate = soldDate;
+		this.items = items;
+		this.seller = seller;
+		this.company = company;
+		this.forCompany = forCompany;
+	}
+
 	//endregion
 
 	//region getters
@@ -51,6 +75,9 @@ public class Bill {
 	public Company getCompany() {
 		return company;
 	}
+	public boolean isForCompany() {
+		return forCompany;
+	}
 	//endregion
 
 	//region setters
@@ -68,6 +95,9 @@ public class Bill {
 	}
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+	public void setForCompany(boolean forCompany) {
+		this.forCompany = forCompany;
 	}
 	//endregion
 }

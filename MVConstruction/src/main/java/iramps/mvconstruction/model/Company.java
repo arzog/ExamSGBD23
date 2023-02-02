@@ -8,14 +8,15 @@ public class Company {
 	private String vat;
 	private String mail;
 	private String phone;
-	private String isActive;
+	private boolean isActive;
 	private Address address;
 	//endregion
 
 	//region constructors
 	public Company() {
 	}
-	public Company(String name, String vat, String mail, String phone, String isActive, Address address) {
+
+	public Company(String name, String vat, String mail, String phone, boolean isActive, Address address) {
 		this.name = name;
 		this.vat = vat;
 		this.mail = mail;
@@ -23,7 +24,8 @@ public class Company {
 		this.isActive = isActive;
 		this.address = address;
 	}
-	public Company(int id, String name, String vat, String mail, String phone, String isActive, Address address) {
+
+	public Company(int id, String name, String vat, String mail, String phone, boolean isActive, Address address) {
 		this.id = id;
 		this.name = name;
 		this.vat = vat;
@@ -38,21 +40,27 @@ public class Company {
 	public int getId() {
 		return id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public String getVat() {
 		return vat;
 	}
+
 	public String getMail() {
 		return mail;
 	}
+
 	public String getPhone() {
 		return phone;
 	}
-	public String getIsActive() {
+
+	public boolean getIsActive() {
 		return isActive;
 	}
+
 	public Address getAddress() {
 		return address;
 	}
@@ -62,18 +70,23 @@ public class Company {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public void setVat(String vat) {
 		this.vat = vat;
 	}
+
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public void setIsActive(String isActive) {
+
+	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+
 	public void setAddress(Address address) {
 		this.address = address;
 	}
