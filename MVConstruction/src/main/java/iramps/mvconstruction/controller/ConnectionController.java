@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -28,6 +29,8 @@ public class ConnectionController {
 	private PasswordField pswd;
 	@FXML
 	private CheckBox pswdBox;
+
+	private Button connect;
 	//endregion;
 
 	@FXML
@@ -50,14 +53,10 @@ public class ConnectionController {
 			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/inscription.fxml"));
 			AnchorPane subView = loader.load();
 
-			Stage subStage = new Stage();
-			subStage.setTitle("Inscription");
+			Stage window = (Stage) connect.getScene().getWindow();
+			window.setTitle("Inscription");
 
-			Scene scene = new Scene(subView);
-			subStage.setScene(scene);
-
-			SubscriptionController controller = loader.getController();
-			controller.setStage(subStage);
+			window.setScene(new Scene(subView));
 
 		} catch (IOException e) {
 			throw new RuntimeException(e);

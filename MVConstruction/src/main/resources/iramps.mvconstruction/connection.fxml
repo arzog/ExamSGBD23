@@ -11,7 +11,7 @@
             <buttons>
                 <Button mnemonicParsing="false" text="Quitter" onAction="#onQuit"/>
                 <Button mnemonicParsing="false" text="S'inscrire" onAction="#onSubscribeClick"/>
-                <Button mnemonicParsing="false" onAction="#onConnectClick" text="Se connecter"/>
+                <Button fx:id="connect" mnemonicParsing="false" onAction="#onConnectClick" text="Se connecter"/>
             </buttons>
         </ButtonBar>
         <Label layoutX="52.0" layoutY="59.0" text="Ecran de connexion" AnchorPane.leftAnchor="52.0"
