@@ -29,8 +29,11 @@ public class ConnectionController {
 	private PasswordField pswd;
 	@FXML
 	private CheckBox pswdBox;
-
+	@FXML
+	private Button subscritpion;
+	@FXML
 	private Button connect;
+	private Stage window;
 	//endregion;
 
 	@FXML
@@ -41,7 +44,22 @@ public class ConnectionController {
 		if (user != null) {
 			if (user.getPswd().equals(pswd.getText())) {
 				System.out.println("Connection");
-				System.out.println(user);
+				try {
+					FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/home.fxml"));
+					AnchorPane subView = loader.load();
+
+					window = (Stage) connect.getScene().getWindow();
+					window.setTitle("Accueil");
+
+
+					window.setScene(new Scene(subView));
+
+					HomeController controller = loader.getController();
+					controller.setUser(user);
+
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
 			}
 		}
 	}
@@ -53,7 +71,7 @@ public class ConnectionController {
 			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/inscription.fxml"));
 			AnchorPane subView = loader.load();
 
-			Stage window = (Stage) connect.getScene().getWindow();
+			window = (Stage) subscritpion.getScene().getWindow();
 			window.setTitle("Inscription");
 
 			window.setScene(new Scene(subView));
@@ -63,7 +81,7 @@ public class ConnectionController {
 		}
 	}
 	@FXML
-	private void onQuit(){
+	private void onQuit() {
 		Platform.exit();
 	}
 	@FXML
