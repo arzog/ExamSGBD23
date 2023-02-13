@@ -36,59 +36,59 @@ public class Company {
 	}
 	//endregion
 
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	//region getters
 	public int getId() {
 		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getVat() {
-		return vat;
-	}
-
-	public String getMail() {
-		return mail;
-	}
-
-	public String getPhone() {
-		return phone;
 	}
 
 	public boolean getIsActive() {
 		return isActive;
 	}
 
-	public Address getAddress() {
-		return address;
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 	//endregion
+
+	public String getName() {
+		return name;
+	}
 
 	//region setters
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void setVat(String vat) {
-		this.vat = vat;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
+	public String getPhone() {
+		return phone;
 	}
 
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-	public void setIsActive(boolean isActive) {
-		this.isActive = isActive;
+	public String getVat() {
+		return vat;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setVat(String vat) {
+		this.vat = vat;
 	}
 	//endregion
 }

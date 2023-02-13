@@ -46,6 +46,21 @@ public class SoldItemsDao extends Dao<SoldItems> {
 	}
 
 	@Override
+	public boolean deleteByObject(SoldItems soldItems) {
+		try {
+			PreparedStatement statement = connection.prepareStatement("delete from sold_items where id = ?");
+			statement.setInt(1, soldItems.getId());
+
+			statement.executeUpdate();
+			statement.close();
+			System.out.println("success");
+			return true;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
 	public List<SoldItems> readAll() {
 		try {
 			List<SoldItems> items = new ArrayList<>();
@@ -64,6 +79,7 @@ public class SoldItemsDao extends Dao<SoldItems> {
 			throw new RuntimeException(e);
 		}
 	}
+
 	@Override
 	public SoldItems readById(int id) {
 		try {
@@ -77,7 +93,6 @@ public class SoldItemsDao extends Dao<SoldItems> {
 				Article article = dao.readById(set.getInt("id_article"));
 				return new SoldItems(id, set.getString("bill_num"), Map.of(article, set.getInt("qtt")));
 			}
-
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -124,21 +139,6 @@ public class SoldItemsDao extends Dao<SoldItems> {
 			statement.close();
 			System.out.println("success");
 			return soldItems;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
-	public boolean deleteByObject(SoldItems soldItems) {
-		try {
-			PreparedStatement statement = connection.prepareStatement("delete from sold_items where id = ?");
-			statement.setInt(1, soldItems.getId());
-
-			statement.executeUpdate();
-			statement.close();
-			System.out.println("success");
-			return true;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

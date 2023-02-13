@@ -14,6 +14,7 @@ public class Address {
 	//region constructors
 	public Address() {
 	}
+
 	public Address(String country, String city, int zipCode, String street, String number) {
 		this.country = country;
 		this.city = city;
@@ -21,6 +22,7 @@ public class Address {
 		this.street = street;
 		this.number = number;
 	}
+
 	public Address(int id, String country, String city, int zipCode, String street, String number) {
 		this.id = id;
 		this.country = country;
@@ -31,42 +33,51 @@ public class Address {
 	}
 	//endregion
 
-	//region getter
-	public int getId() {
-		return id;
-	}
-	public String getCountry() {
-		return country;
-	}
 	public String getCity() {
 		return city;
 	}
-	public int getZipCode() {
-		return zipCode;
+
+	public void setCity(String city) {
+		this.city = city;
 	}
-	public String getStreet() {
-		return street;
+
+	public String getCountry() {
+		return country;
 	}
-	public String getNumber() {
-		return number;
-	}
-	//endregion
 
 	//region setter
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public void setCity(String city) {
-		this.city = city;
+
+	//region getter
+	public int getId() {
+		return id;
 	}
-	public void setZipCode(int zipCode) {
-		this.zipCode = zipCode;
+
+	public String getNumber() {
+		return number;
 	}
+	//endregion
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
 	public void setStreet(String street) {
 		this.street = street;
 	}
-	public void setNumber(String number) {
-		this.number = number;
+
+	public int getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(int zipCode) {
+		this.zipCode = zipCode;
 	}
 	//endregion
 }

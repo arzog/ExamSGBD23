@@ -3,9 +3,7 @@ package iramps.mvconstruction.model;
 import java.util.Map;
 
 /**
- * billNumber
- * -> for clients ==> NameFirstname_ddMMYY_xxxx
- * -> for companies ==> Name_ddMMYY_xxxx
+ * billNumber -> for clients ==> NameFirstname_ddMMYY_xxxx -> for companies ==> Name_ddMMYY_xxxx
  */
 public class SoldItems {
 
@@ -18,10 +16,12 @@ public class SoldItems {
 	//region constructors
 	public SoldItems() {
 	}
+
 	public SoldItems(String billNumber, Map<Article, Integer> itemCart) {
 		this.billNumber = billNumber;
 		this.itemCart = itemCart;
 	}
+
 	public SoldItems(int id, String billNumber, Map<Article, Integer> itemCart) {
 		this.id = id;
 		this.billNumber = billNumber;
@@ -29,22 +29,25 @@ public class SoldItems {
 	}
 	//endregion
 
-	//region getters
-	public int getId() {
-		return id;
-	}
 	public String getBillNumber() {
 		return billNumber;
 	}
-	public Map<Article, Integer> getItemCart() {
-		return itemCart;
-	}
-	//endregion
 
 	//region setters
 	public void setBillNumber(String billNumber) {
 		this.billNumber = billNumber;
 	}
+
+	//region getters
+	public int getId() {
+		return id;
+	}
+	//endregion
+
+	public Map<Article, Integer> getItemCart() {
+		return itemCart;
+	}
+
 	public void setItemCart(Map<Article, Integer> itemCart) {
 		this.itemCart = itemCart;
 	}

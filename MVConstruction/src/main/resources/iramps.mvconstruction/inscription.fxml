@@ -46,7 +46,7 @@
         <Label layoutX="272.0" layoutY="33.0" text="Inscription"/>
         <ButtonBar layoutX="220.0" layoutY="363.0" prefHeight="25.0" prefWidth="0.0">
             <buttons>
-                <Button mnemonicParsing="false" text="Annuler"/>
+                <Button fx:id="cancel" mnemonicParsing="false" text="Annuler" onAction="#onCancelClick"/>
                 <Button fx:id="validate" mnemonicParsing="false" text="Valider" onAction="#onValidateClick"/>
             </buttons>
         </ButtonBar>

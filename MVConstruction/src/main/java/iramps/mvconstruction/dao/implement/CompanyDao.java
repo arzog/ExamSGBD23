@@ -39,6 +39,21 @@ public class CompanyDao extends Dao<Company> {
 	}
 
 	@Override
+	public boolean deleteByObject(Company company) {
+		try {
+			PreparedStatement statement = connection.prepareStatement("delete from companies where id = ?");
+			statement.setInt(1, company.getId());
+
+			statement.executeUpdate();
+			statement.close();
+			System.out.println("success");
+			return true;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
 	public List<Company> readAll() {
 		List<Company> companies = new ArrayList<>();
 		try {
@@ -48,7 +63,8 @@ public class CompanyDao extends Dao<Company> {
 			statement.close();
 
 			while (set.next()) {
-				companies.add(new Company(set.getInt("id"), set.getString("name"), set.getString("vat"), set.getString("mail"), set.getString("phone"), set.getBoolean("isActive"), address.readById(set.getInt("id_address"))));
+				companies.add(new Company(set.getInt("id"), set.getString("name"), set.getString("vat"), set.getString("mail"), set.getString("phone"), set.getBoolean("isActive"),
+										  address.readById(set.getInt("id_address"))));
 			}
 			System.out.println("success");
 			return companies;
@@ -56,6 +72,7 @@ public class CompanyDao extends Dao<Company> {
 			throw new RuntimeException(e);
 		}
 	}
+
 	@Override
 	public Company readById(int id) {
 		try {
@@ -66,7 +83,8 @@ public class CompanyDao extends Dao<Company> {
 			statement.close();
 
 			if (set.first()) {
-				return new Company(id, set.getString("name"), set.getString("vat"), set.getString("mail"), set.getString("phone"), set.getBoolean("isActive"), address.readById(set.getInt("id_address")));
+				return new Company(id, set.getString("name"), set.getString("vat"), set.getString("mail"), set.getString("phone"), set.getBoolean("isActive"),
+								   address.readById(set.getInt("id_address")));
 			}
 			System.out.println("success");
 		} catch (SQLException e) {
@@ -85,7 +103,8 @@ public class CompanyDao extends Dao<Company> {
 			statement.close();
 
 			if (set.first()) {
-				return new Company(set.getInt("id"), name, set.getString("vat"), set.getString("mail"), set.getString("phone"), set.getBoolean("isActive"), address.readById(set.getInt("id_address")));
+				return new Company(set.getInt("id"), name, set.getString("vat"), set.getString("mail"), set.getString("phone"), set.getBoolean("isActive"),
+								   address.readById(set.getInt("id_address")));
 			}
 			System.out.println("success");
 		} catch (SQLException e) {
@@ -110,22 +129,6 @@ public class CompanyDao extends Dao<Company> {
 			statement.close();
 			System.out.println("success");
 			return company;
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
-	public boolean deleteByObject(Company company) {
-		try {
-			PreparedStatement statement = connection.prepareStatement("delete from companies where id = ?");
-			statement.setInt(1, company.getId());
-
-			statement.executeUpdate();
-			statement.close();
-			System.out.println("success");
-			return true;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

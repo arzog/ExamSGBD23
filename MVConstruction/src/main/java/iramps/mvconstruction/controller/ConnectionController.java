@@ -36,13 +36,17 @@ public class ConnectionController {
 	private Stage window;
 	//endregion;
 
+	public void setMainApp(Main main) {
+		this.main = main;
+	}
+
 	@FXML
 	private void onConnectClick() {
 		Dao<User> userDao = DaoFactory.createUserDao();
 		User user = userDao.readByName(username.getText());
 
 		if (user != null) {
-			if (user.getPswd().equals(pswd.getText())) {
+			if (user.getPswd().equals(pswd.getText()) || user.getPswd().equals(visiblePswd.getText())) {
 				System.out.println("Connection");
 				try {
 					FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/home.fxml"));
@@ -51,22 +55,24 @@ public class ConnectionController {
 					window = (Stage) connect.getScene().getWindow();
 					window.setTitle("Accueil");
 
-
 					window.setScene(new Scene(subView));
 
 					HomeController controller = loader.getController();
 					controller.setUser(user);
-
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
 			}
 		}
 	}
+
+	@FXML
+	private void onQuit() {
+		Platform.exit();
+	}
+
 	@FXML
 	private void onSubscribeClick() {
-		System.out.println("call inscription.fxml");
-
 		try {
 			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/inscription.fxml"));
 			AnchorPane subView = loader.load();
@@ -75,15 +81,11 @@ public class ConnectionController {
 			window.setTitle("Inscription");
 
 			window.setScene(new Scene(subView));
-
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
-	@FXML
-	private void onQuit() {
-		Platform.exit();
-	}
+
 	@FXML
 	private void showPasswd() {
 		if (pswdBox.isSelected()) {
@@ -98,8 +100,5 @@ public class ConnectionController {
 			visiblePswd.setVisible(false);
 			visiblePswd.setText("");
 		}
-	}
-	public void setMainApp(Main main) {
-		this.main = main;
 	}
 }

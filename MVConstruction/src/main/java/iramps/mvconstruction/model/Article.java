@@ -14,6 +14,7 @@ public class Article {
 	//region constructors
 	public Article() {
 	}
+
 	public Article(String label, double price, int currentStock, int minStock, boolean isActive) {
 		this.label = label;
 		this.price = price;
@@ -21,6 +22,7 @@ public class Article {
 		this.minStock = minStock;
 		this.isActive = isActive;
 	}
+
 	public Article(int id, String label, double price, int currentStock, int minStock, boolean isActive) {
 		this.id = id;
 		this.label = label;
@@ -31,40 +33,49 @@ public class Article {
 	}
 	//endregion
 
+	public int getCurrentStock() {
+		return currentStock;
+	}
+
+	public void setCurrentStock(int currentStock) {
+		this.currentStock = currentStock;
+	}
+
 	//region getters
 	public int getId() {
 		return id;
 	}
+
 	public String getLabel() {
 		return label;
 	}
-	public double getPrice() {
-		return price;
-	}
-	public int getCurrentStock() {
-		return currentStock;
-	}
-	public int getMinStock() {
-		return minStock;
-	}
-	public boolean isActive() {
-		return isActive;
-	}
-	//endregion
 
 	//region setters
 	public void setLabel(String label) {
 		this.label = label;
 	}
-	public void setPrice(double price) {
-		this.price = price;
+
+	public int getMinStock() {
+		return minStock;
 	}
-	public void setCurrentStock(int currentStock) {
-		this.currentStock = currentStock;
-	}
+	//endregion
+
 	public void setMinStock(int minStock) {
 		this.minStock = minStock;
 	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
 	public void setActive(boolean active) {
 		isActive = active;
 	}

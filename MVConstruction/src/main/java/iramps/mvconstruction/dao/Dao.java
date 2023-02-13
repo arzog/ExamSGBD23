@@ -5,16 +5,9 @@ import java.util.List;
 
 /**
  * @param <T>
- * @author Brice Beumier
- * Parent class gathering the different SQL methods
- * Create Read
- * Update: method used to update data from the database
- * --> UpdateById [mainly used]: update the data thanks to its id
- * --> --> returns the updated object
- * --> UpdateAllByColumn [used by dev for mass update]: udpate all data in the selected column with a new value
- * --> --> returns the number of changed data
- * Delete: method used to disable an entry in the database. For history purpose, the entries won't be deleted but will be set as INACTIVE
- * --> DeleteById: disables the entry corresponding to the id
+ * @author Brice Beumier Parent class gathering the different SQL methods Create Read Update: method used to update data from the database --> UpdateById [mainly used]: update the data thanks to its
+ * id --> --> returns the updated object --> UpdateAllByColumn [used by dev for mass update]: udpate all data in the selected column with a new value --> --> returns the number of changed data Delete:
+ * method used to disable an entry in the database. For history purpose, the entries won't be deleted but will be set as INACTIVE --> DeleteById: disables the entry corresponding to the id
  */
 public abstract class Dao<T> {
 
@@ -31,6 +24,15 @@ public abstract class Dao<T> {
 	 * @return the creation's result
 	 */
 	public abstract boolean create(T t);
+
+	/**
+	 * disable the entry corresponding to the id given by T t
+	 *
+	 * @param t object used to get the id to disable
+	 * @return the removing's result
+	 */
+	public abstract boolean deleteByObject(T t);
+
 	/**
 	 * Read all the entries
 	 *
@@ -63,13 +65,4 @@ public abstract class Dao<T> {
 	 * @then the process is redirected to "create(T t)"
 	 */
 	public abstract T updateById(T t);
-
-	/**
-	 * disable the entry corresponding to the id given by T t
-	 *
-	 * @param t object used to get the id to disable
-	 * @return the removing's result
-	 */
-	public abstract boolean deleteByObject(T t);
-
 }

@@ -18,33 +18,33 @@
             <children>
                 <Pane prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <Button layoutX="25.0" layoutY="13.0" mnemonicParsing="false" prefHeight="75.0"
-                                prefWidth="150.0" text="Gestion des clients"/>
+                        <Button fx:id="clients" layoutX="25.0" layoutY="13.0" mnemonicParsing="false" prefHeight="75.0"
+                                prefWidth="150.0" text="Gestion des clients" onAction="#onClientsClick"/>
                     </children>
                 </Pane>
                 <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                     <children>
-                        <Button layoutX="23.0" layoutY="10.0" mnemonicParsing="false" prefHeight="75.0"
-                                prefWidth="150.0" text="Gestion des factures"/>
+                        <Button fx:id="bills" layoutX="23.0" layoutY="10.0" mnemonicParsing="false" prefHeight="75.0"
+                                prefWidth="150.0" text="Gestion des factures" onAction="#onBillsClick"/>
                     </children>
                 </Pane>
                 <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                     <children>
-                        <Button layoutX="23.0" layoutY="10.0" mnemonicParsing="false" prefHeight="75.0"
-                                prefWidth="150.0" text="Gestion des utilisateurs"/>
+                        <Button fx:id="users" layoutX="23.0" layoutY="10.0" mnemonicParsing="false" prefHeight="75.0"
+                                prefWidth="150.0" text="Gestion des utilisateurs" onAction="#onUsersClick"/>
                     </children>
                 </Pane>
                 <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
-                        <Button layoutX="25.0" layoutY="13.0" mnemonicParsing="false" prefHeight="75.0"
-                                prefWidth="150.0" text="Gestion des articles"/>
+                        <Button fx:id="articles" layoutX="25.0" layoutY="13.0" mnemonicParsing="false" prefHeight="75.0"
+                                prefWidth="150.0" text="Gestion des articles" onAction="#onArticlesClick"/>
                     </children>
                 </Pane>
             </children>
         </GridPane>
         <Label layoutX="281.0" layoutY="21.0" text="Accueil"/>
-        <Button layoutX="125.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="351.0"
-                text="Retour"/>
+        <Button fx:id="back" layoutX="125.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="351.0"
+                text="Retour" onAction="#onBackClick"/>
         <Label fx:id="welcome" alignment="CENTER" layoutX="276.0" layoutY="51.0" text="Welcome"/>
     </children>
 </AnchorPane>

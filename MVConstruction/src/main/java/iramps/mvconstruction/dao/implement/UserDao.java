@@ -36,6 +36,21 @@ public class UserDao extends Dao<User> {
 	}
 
 	@Override
+	public boolean deleteByObject(User user) {
+		try {
+			PreparedStatement statement = connection.prepareStatement("delete from users where id = ?");
+			statement.setInt(1, user.getId());
+
+			statement.executeUpdate();
+			statement.close();
+			System.out.println("success");
+			return true;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
 	public List<User> readAll() {
 		List<User> users = new ArrayList<>();
 		try {
@@ -53,6 +68,7 @@ public class UserDao extends Dao<User> {
 			throw new RuntimeException(e);
 		}
 	}
+
 	@Override
 	public User readById(int id) {
 		try {
@@ -104,21 +120,6 @@ public class UserDao extends Dao<User> {
 			statement.close();
 			System.out.println("success");
 			return user;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
-	public boolean deleteByObject(User user) {
-		try {
-			PreparedStatement statement = connection.prepareStatement("delete from users where id = ?");
-			statement.setInt(1, user.getId());
-
-			statement.executeUpdate();
-			statement.close();
-			System.out.println("success");
-			return true;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

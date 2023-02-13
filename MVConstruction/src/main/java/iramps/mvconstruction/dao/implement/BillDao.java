@@ -39,10 +39,14 @@ public class BillDao extends Dao<Bill> {
 			statement.executeUpdate();
 			statement.close();
 			return true;
-
 		} catch (SQLException e) {
 			throw new BillNotFoundException(e.getMessage());
 		}
+	}
+
+	@Override
+	public boolean deleteByObject(Bill bill) {
+		return false;
 	}
 
 	@Override
@@ -57,9 +61,11 @@ public class BillDao extends Dao<Bill> {
 				boolean isCompany = set.getBoolean("for_company");
 
 				if (isCompany) {
-					bills.add(new Bill(set.getInt("id"), set.getDate("sold_date"), soldItemsDao.readById(set.getInt("id_sold_items")), userDao.readById(set.getInt("id_user")), companyDao.readById(set.getInt("id_company")), true));
+					bills.add(new Bill(set.getInt("id"), set.getDate("sold_date"), soldItemsDao.readById(set.getInt("id_sold_items")), userDao.readById(set.getInt("id_user")),
+									   companyDao.readById(set.getInt("id_company")), true));
 				} else {
-					bills.add(new Bill(set.getInt("id"), set.getDate("sold_date"), soldItemsDao.readById(set.getInt("id_sold_items")), userDao.readById(set.getInt("id_user")), clientDao.readById(set.getInt("id_client")), false));
+					bills.add(new Bill(set.getInt("id"), set.getDate("sold_date"), soldItemsDao.readById(set.getInt("id_sold_items")), userDao.readById(set.getInt("id_user")),
+									   clientDao.readById(set.getInt("id_client")), false));
 				}
 			}
 
@@ -68,6 +74,7 @@ public class BillDao extends Dao<Bill> {
 			throw new RuntimeException(e);
 		}
 	}
+
 	@Override
 	public Bill readById(int id) {
 		try {
@@ -82,9 +89,11 @@ public class BillDao extends Dao<Bill> {
 				boolean isCompany = set.getBoolean("for_company");
 
 				if (isCompany) {
-					return new Bill(id, set.getDate("sold_date"), soldItemsDao.readById(set.getInt("id_sold_items")), userDao.readById(set.getInt("id_user")), companyDao.readById(set.getInt("id_company")), true);
+					return new Bill(id, set.getDate("sold_date"), soldItemsDao.readById(set.getInt("id_sold_items")), userDao.readById(set.getInt("id_user")),
+									companyDao.readById(set.getInt("id_company")), true);
 				} else {
-					return new Bill(id, set.getDate("sold_date"), soldItemsDao.readById(set.getInt("id_sold_items")), userDao.readById(set.getInt("id_user")), clientDao.readById(set.getInt("id_client")), false);
+					return new Bill(id, set.getDate("sold_date"), soldItemsDao.readById(set.getInt("id_sold_items")), userDao.readById(set.getInt("id_user")),
+									clientDao.readById(set.getInt("id_client")), false);
 				}
 			}
 		} catch (SQLException e) {
@@ -108,10 +117,5 @@ public class BillDao extends Dao<Bill> {
 			throw new RuntimeException(e);
 		}
 		return null;
-	}
-
-	@Override
-	public boolean deleteByObject(Bill bill) {
-		return false;
 	}
 }

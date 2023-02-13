@@ -40,6 +40,20 @@ public class ClientDao extends Dao<Client> {
 	}
 
 	@Override
+	public boolean deleteByObject(Client client) {
+		try {
+			PreparedStatement statement = connection.prepareStatement("delete from clients where id = ?");
+			statement.setInt(1, client.getId());
+
+			statement.close();
+			System.out.println("success");
+			return true;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
 	public List<Client> readAll() {
 		List<Client> clients = new ArrayList<>();
 		try {
@@ -49,7 +63,9 @@ public class ClientDao extends Dao<Client> {
 			statement.close();
 
 			while (set.next()) {
-				clients.add(new Client(set.getInt("id"), set.getString("firstname"), set.getString("lastname"), set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")), set.getBoolean("isActive")));
+				clients.add(
+						new Client(set.getInt("id"), set.getString("firstname"), set.getString("lastname"), set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")),
+								   set.getBoolean("isActive")));
 			}
 			System.out.println("success");
 			return clients;
@@ -57,6 +73,7 @@ public class ClientDao extends Dao<Client> {
 			throw new RuntimeException(e);
 		}
 	}
+
 	@Override
 	public Client readById(int id) {
 		try {
@@ -68,7 +85,8 @@ public class ClientDao extends Dao<Client> {
 
 			if (set.first()) {
 
-				return new Client(id, set.getString("firstname"), set.getString("lastname"), set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")), set.getBoolean("isActive"));
+				return new Client(id, set.getString("firstname"), set.getString("lastname"), set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")),
+								  set.getBoolean("isActive"));
 			}
 			System.out.println("success");
 		} catch (SQLException e) {
@@ -87,7 +105,8 @@ public class ClientDao extends Dao<Client> {
 			statement.close();
 
 			if (set.first()) {
-				return new Client(set.getInt("id"), set.getString("firstname"), name, set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")), set.getBoolean("isActive"));
+				return new Client(set.getInt("id"), set.getString("firstname"), name, set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")),
+								  set.getBoolean("isActive"));
 			}
 			System.out.println("success");
 		} catch (SQLException e) {
@@ -113,20 +132,6 @@ public class ClientDao extends Dao<Client> {
 
 			System.out.println("success");
 			return client;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
-	public boolean deleteByObject(Client client) {
-		try {
-			PreparedStatement statement = connection.prepareStatement("delete from clients where id = ?");
-			statement.setInt(1, client.getId());
-
-			statement.close();
-			System.out.println("success");
-			return true;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

@@ -10,12 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 public class AddressDao extends Dao<Address> {
 
 	public AddressDao(Connection connection) {
 
 		super(connection);
 	}
+
 	@Override
 	public boolean create(Address address) {
 		try {
@@ -38,6 +40,21 @@ public class AddressDao extends Dao<Address> {
 	}
 
 	@Override
+	public boolean deleteByObject(Address address) {
+		try {
+			PreparedStatement statement = connection.prepareStatement("delete from addresses where id = ?");
+			statement.setInt(1, address.getId());
+
+			statement.executeUpdate();
+			statement.close();
+			System.out.println("Address successfully deleted");
+			return true;
+		} catch (SQLException e) {
+			throw new AddressNotFoundException(e.getMessage());
+		}
+	}
+
+	@Override
 	public List<Address> readAll() {
 		try {
 			List<Address> addresses = new ArrayList<>();
@@ -54,6 +71,7 @@ public class AddressDao extends Dao<Address> {
 			throw new AddressNotFoundException(e.getMessage());
 		}
 	}
+
 	@Override
 	public Address readById(int id) {
 		try {
@@ -73,6 +91,7 @@ public class AddressDao extends Dao<Address> {
 		}
 		return null;
 	}
+
 	@Override
 	public Address readByName(String name) {
 		try {
@@ -91,6 +110,7 @@ public class AddressDao extends Dao<Address> {
 		}
 		return null;
 	}
+
 	@Override
 	public Address updateById(Address address) {
 		try {
@@ -106,20 +126,6 @@ public class AddressDao extends Dao<Address> {
 			statement.close();
 			System.out.println("Address successfully updated");
 			return address;
-		} catch (SQLException e) {
-			throw new AddressNotFoundException(e.getMessage());
-		}
-	}
-	@Override
-	public boolean deleteByObject(Address address) {
-		try {
-			PreparedStatement statement = connection.prepareStatement("delete from addresses where id = ?");
-			statement.setInt(1, address.getId());
-
-			statement.executeUpdate();
-			statement.close();
-			System.out.println("Address successfully deleted");
-			return true;
 		} catch (SQLException e) {
 			throw new AddressNotFoundException(e.getMessage());
 		}

@@ -16,6 +16,14 @@ public class Main extends Application {
 	private Stage primary;
 	private BorderPane root;
 
+	public static void main(String[] args) {
+		launch();
+	}
+
+	public BorderPane getRoot() {
+		return root;
+	}
+
 	@Override
 	public void start(Stage stage) {
 		this.primary = stage;
@@ -29,7 +37,7 @@ public class Main extends Application {
 	private void initRootLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/root.fxml"));
-			root = (BorderPane) loader.load();
+			root = loader.load();
 
 			Scene scene = new Scene(root);
 			primary.setScene(scene);
@@ -51,12 +59,5 @@ public class Main extends Application {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	public BorderPane getRoot() {
-		return root;
-	}
-	public static void main(String[] args) {
-		launch();
 	}
 }

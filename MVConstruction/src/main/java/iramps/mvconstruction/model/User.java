@@ -14,6 +14,7 @@ public class User {
 	//region constructors
 	public User() {
 	}
+
 	public User(String firstname, String lastname, String username, String pswd, Boolean isActive) {
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -21,6 +22,7 @@ public class User {
 		this.pswd = pswd;
 		this.isActive = isActive;
 	}
+
 	public User(int id, String firstname, String lastname, String username, String pswd, Boolean isActive) {
 		this.id = id;
 		this.firstname = firstname;
@@ -31,42 +33,51 @@ public class User {
 	}
 	//endregion
 
-	//region getters
-	public int getId() {
-		return id;
-	}
-	public String getFirstname() {
-		return firstname;
-	}
-	public String getLastname() {
-		return lastname;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public String getPswd() {
-		return pswd;
-	}
 	public Boolean getActive() {
 		return isActive;
 	}
-	//endregion
+
+	public void setActive(Boolean active) {
+		isActive = active;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
 
 	//region setters
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
+
+	//region getters
+	public int getId() {
+		return id;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+	//endregion
+
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+
+	public String getPswd() {
+		return pswd;
 	}
+
 	public void setPswd(String pswd) {
 		this.pswd = pswd;
 	}
-	public void setActive(Boolean active) {
-		isActive = active;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	//endregion
 }

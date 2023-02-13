@@ -10,11 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 public class ArticleDao extends Dao<Article> {
 
 	public ArticleDao(Connection connection) {
 		super(connection);
 	}
+
 	@Override
 	public boolean create(Article article) {
 		try {
@@ -35,22 +37,21 @@ public class ArticleDao extends Dao<Article> {
 			return false;
 		}
 	}
+
 	@Override
-	public Article readById(int id) {
+	public boolean deleteByObject(Article article) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from articles where id=?");
-			statement.setInt(1, id);
+			PreparedStatement statement = connection.prepareStatement("delete from articles where id = ?");
+			statement.setInt(1, article.getId());
 
-			ResultSet set = statement.executeQuery();
-
-			if (set.first()) {
-				return new Article(id, set.getString("label"), set.getDouble("price"), set.getInt("current_stock"), set.getInt("min_stock"), set.getBoolean("isActive"));
-			}
+			statement.executeUpdate();
+			statement.close();
+			System.out.println("Article successfully deleted");
+			return true;
 		} catch (SQLException e) {
 			System.out.println("An issue occured while creating the article");
 			throw new ArticleNotFoundException(e.getMessage());
 		}
-		return null;
 	}
 
 	@Override
@@ -69,6 +70,25 @@ public class ArticleDao extends Dao<Article> {
 			throw new ArticleNotFoundException(e.getMessage());
 		}
 	}
+
+	@Override
+	public Article readById(int id) {
+		try {
+			PreparedStatement statement = connection.prepareStatement("select * from articles where id=?");
+			statement.setInt(1, id);
+
+			ResultSet set = statement.executeQuery();
+
+			if (set.first()) {
+				return new Article(id, set.getString("label"), set.getDouble("price"), set.getInt("current_stock"), set.getInt("min_stock"), set.getBoolean("isActive"));
+			}
+		} catch (SQLException e) {
+			System.out.println("An issue occured while creating the article");
+			throw new ArticleNotFoundException(e.getMessage());
+		}
+		return null;
+	}
+
 	@Override
 	public Article readByName(String name) {
 		try {
@@ -103,21 +123,6 @@ public class ArticleDao extends Dao<Article> {
 			System.out.println("Article successfully updated");
 
 			return article;
-		} catch (SQLException e) {
-			System.out.println("An issue occured while creating the article");
-			throw new ArticleNotFoundException(e.getMessage());
-		}
-	}
-	@Override
-	public boolean deleteByObject(Article article) {
-		try {
-			PreparedStatement statement = connection.prepareStatement("delete from articles where id = ?");
-			statement.setInt(1, article.getId());
-
-			statement.executeUpdate();
-			statement.close();
-			System.out.println("Article successfully deleted");
-			return true;
 		} catch (SQLException e) {
 			System.out.println("An issue occured while creating the article");
 			throw new ArticleNotFoundException(e.getMessage());
