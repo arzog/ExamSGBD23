@@ -1,23 +1,18 @@
 package iramps.mvconstruction.controller;
 
-import iramps.mvconstruction.Main;
 import iramps.mvconstruction.dao.implement.UserDao;
 import iramps.mvconstruction.factory.DaoFactory;
 import iramps.mvconstruction.model.User;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class SubscriptionController {
+public class SubscriptionController extends ScreenController {
 
 	//region
 	public static final String RED = "-fx-text-box-border: #B22222; -fx-focus-color: #B22222;";
@@ -46,7 +41,7 @@ public class SubscriptionController {
 	}
 
 	public void onCancelClick() {
-		switchScreen("/iramps.mvconstruction/connection.fxml");
+		switchScreen("/iramps.mvconstruction/connection.fxml", "Connection", cancel);
 	}
 
 	public void onValidateClick() {
@@ -58,7 +53,7 @@ public class SubscriptionController {
 					pswd.getText(),
 					true));
 
-			switchScreen("/iramps.mvconstruction/connection.fxml");
+			switchScreen("/iramps.mvconstruction/connection.fxml", "Connection", cancel);
 		}
 	}
 
@@ -107,19 +102,5 @@ public class SubscriptionController {
 					}
 				});
 		return pswdOK.get() & textOK.get();
-	}
-
-	private void switchScreen(String urlFxmlFile) {
-		try {
-			FXMLLoader loader = new FXMLLoader(Main.class.getResource(urlFxmlFile));
-			AnchorPane subView = loader.load();
-
-			window = (Stage) cancel.getScene().getWindow();
-			window.setTitle("Connection");
-
-			window.setScene(new Scene(subView));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
 	}
 }

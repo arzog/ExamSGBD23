@@ -10,8 +10,6 @@ e
 f
 6src/main/java/iramps/mvconstruction/model/Company.java,2\2\22ab4ee973dcb61954d22426b33e7b6f43893d6f
 c
-3src/main/java/iramps/mvconstruction/model/User.java,1\4\14ff32c77191dc2ad786875b1380632b285c276c
-c
 3src/main/java/iramps/mvconstruction/model/Bill.java,a\b\abd2c944518b5fe9de76df709d193f0d7b8d09cd
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
@@ -28,8 +26,6 @@ q
 Asrc/main/java/iramps/mvconstruction/dao/implement/CompanyDao.java,0\3\036aeef34e3ed3af56075f18acadd5fbbaaedeea
 h
 8src/main/java/iramps/mvconstruction/model/SoldItems.java,1\6\168f3d00defa733e690f73454b613aa0fae40471
-n
->src/main/java/iramps/mvconstruction/dao/implement/UserDao.java,4\c\4cf3d011787c2394e125649ab1a3757d80034164
 N
 src/main/java/module-info.java,1\c\1c89a5491fbfda3fb050196d6a239f20200296e7
 x
@@ -44,12 +40,8 @@ k
 0src/main/java/iramps/mvconstruction/dao/Dao.java,2\e\2e4e0fceb2378258985ec8a5eb94b6db3852dfaa
 p
 @src/main/java/iramps/mvconstruction/dao/implement/ClientDao.java,f\0\f07e2860b611ff736d253c494f7953f1d5e0743e
-r
-Bsrc/main/java/iramps/mvconstruction/controller/MgmtController.java,7\f\7fa51ce67e8c4a2895e9773cb9455cf22e2e117f
 {
 Ksrc/main/java/iramps/mvconstruction/controller/mgmt/ArticlesController.java,d\4\d4339612ba63458bcc4188139dffc8953309aa5f
-x
-Hsrc/main/java/iramps/mvconstruction/controller/mgmt/UsersController.java,3\f\3f0211cbceeee41aebeeab26ea525d3d1c4af68c
 z
 Jsrc/main/java/iramps/mvconstruction/controller/mgmt/ClientsController.java,8\c\8ca8fd1864c865f334c691c77698187f1d79679b
 r

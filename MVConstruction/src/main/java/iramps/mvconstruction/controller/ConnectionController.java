@@ -6,18 +6,12 @@ import iramps.mvconstruction.factory.DaoFactory;
 import iramps.mvconstruction.model.User;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
-import java.io.IOException;
-
-public class ConnectionController {
+public class ConnectionController extends MgmtController {
 
 	//region
 	private Main main;
@@ -33,7 +27,6 @@ public class ConnectionController {
 	private Button subscritpion;
 	@FXML
 	private Button connect;
-	private Stage window;
 	//endregion;
 
 	public void setMainApp(Main main) {
@@ -47,21 +40,7 @@ public class ConnectionController {
 
 		if (user != null) {
 			if (user.getPswd().equals(pswd.getText()) || user.getPswd().equals(visiblePswd.getText())) {
-				System.out.println("Connection");
-				try {
-					FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/home.fxml"));
-					AnchorPane subView = loader.load();
-
-					window = (Stage) connect.getScene().getWindow();
-					window.setTitle("Accueil");
-
-					window.setScene(new Scene(subView));
-
-					HomeController controller = loader.getController();
-					controller.setUser(user);
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
+				switchScreen("/iramps.mvconstruction/home.fxml", "Connection", connect);
 			}
 		}
 	}
@@ -73,17 +52,7 @@ public class ConnectionController {
 
 	@FXML
 	private void onSubscribeClick() {
-		try {
-			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/inscription.fxml"));
-			AnchorPane subView = loader.load();
-
-			window = (Stage) subscritpion.getScene().getWindow();
-			window.setTitle("Inscription");
-
-			window.setScene(new Scene(subView));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		switchScreen("/iramps.mvconstruction/inscription.fxml", "Inscription", subscritpion);
 	}
 
 	@FXML

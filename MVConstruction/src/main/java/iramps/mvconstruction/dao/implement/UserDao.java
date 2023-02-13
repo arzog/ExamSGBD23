@@ -28,7 +28,6 @@ public class UserDao extends Dao<User> {
 
 			statement.executeUpdate();
 			statement.close();
-			System.out.println("success");
 			return true;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -43,7 +42,6 @@ public class UserDao extends Dao<User> {
 
 			statement.executeUpdate();
 			statement.close();
-			System.out.println("success");
 			return true;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -57,12 +55,11 @@ public class UserDao extends Dao<User> {
 			PreparedStatement statement = connection.prepareStatement("select * from users");
 
 			ResultSet set = statement.executeQuery();
-			statement.close();
 
 			while (set.next()) {
 				users.add(new User(set.getInt("id"), set.getString("firstname"), set.getString("lastname"), set.getString("username"), set.getString("passwd"), set.getBoolean("isActive")));
 			}
-			System.out.println("success");
+			statement.close();
 			return users;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -98,7 +95,6 @@ public class UserDao extends Dao<User> {
 			if (set.next()) {
 				return new User(set.getInt("id"), set.getString("firstname"), name, set.getString("username"), set.getString("passwd"), set.getBoolean("isActive"));
 			}
-			System.out.println("success");
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -118,7 +114,6 @@ public class UserDao extends Dao<User> {
 
 			statement.executeUpdate();
 			statement.close();
-			System.out.println("success");
 			return user;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
