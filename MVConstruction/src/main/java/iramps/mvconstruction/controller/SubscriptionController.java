@@ -46,17 +46,7 @@ public class SubscriptionController {
 	}
 
 	public void onCancelClick() {
-		try {
-			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/connection.fxml"));
-			AnchorPane subView = loader.load();
-
-			window = (Stage) cancel.getScene().getWindow();
-			window.setTitle("Connection");
-
-			window.setScene(new Scene(subView));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		switchScreen("/iramps.mvconstruction/connection.fxml");
 	}
 
 	public void onValidateClick() {
@@ -67,11 +57,13 @@ public class SubscriptionController {
 					username.getText(),
 					pswd.getText(),
 					true));
+
+			switchScreen("/iramps.mvconstruction/connection.fxml");
 		}
 	}
 
 	private boolean isPswdSecured(String pswd) {
-		return pswd.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\\\\]:;<>,.?~_+-=|]).{8,18}$");
+		return pswd.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:;<>,.?~_+-=|]).{8,18}$");
 	}
 
 	private boolean checkFields() {
@@ -115,5 +107,19 @@ public class SubscriptionController {
 					}
 				});
 		return pswdOK.get() & textOK.get();
+	}
+
+	private void switchScreen(String urlFxmlFile) {
+		try {
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource(urlFxmlFile));
+			AnchorPane subView = loader.load();
+
+			window = (Stage) cancel.getScene().getWindow();
+			window.setTitle("Connection");
+
+			window.setScene(new Scene(subView));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

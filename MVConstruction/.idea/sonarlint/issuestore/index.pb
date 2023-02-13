@@ -44,8 +44,6 @@ k
 0src/main/java/iramps/mvconstruction/dao/Dao.java,2\e\2e4e0fceb2378258985ec8a5eb94b6db3852dfaa
 p
 @src/main/java/iramps/mvconstruction/dao/implement/ClientDao.java,f\0\f07e2860b611ff736d253c494f7953f1d5e0743e
-x
-Hsrc/main/java/iramps/mvconstruction/controller/ConnectionController.java,2\4\24528d96860af8150503816e908fd156fcd621cf
 r
 Bsrc/main/java/iramps/mvconstruction/controller/MgmtController.java,7\f\7fa51ce67e8c4a2895e9773cb9455cf22e2e117f
 {
