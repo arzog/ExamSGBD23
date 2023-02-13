@@ -1,40 +1,46 @@
 package iramps.mvconstruction.controller.mgmt;
 
-import iramps.mvconstruction.Main;
 import iramps.mvconstruction.controller.MgmtController;
+import iramps.mvconstruction.dao.implement.ArticleDao;
+import iramps.mvconstruction.factory.DaoFactory;
+import iramps.mvconstruction.model.Article;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 public class ArticlesController extends MgmtController {
 
 	//region
-	private Stage window;
+	private ArticleDao dao;
 	@FXML
-	private Label name, price, stock, min_stock;
+	private Label label, price, stock, minStock;
 	@FXML
 	private Button add, update, delete;
+	@FXML
+	private TableView<Article> articleTable;
+	@FXML
+	private TableColumn<Article, String> labelColumn;
 	//endregion
+
+	@FXML
+	public void initialize() {
+		dao = (ArticleDao) DaoFactory.createArticleDao();
+
+		articleTable.setItems(FXCollections.observableList(dao.readAll()));
+		labelColumn.setCellValueFactory(cellData -> cellData.getValue().labelPropertyProperty());
+
+		showDetail(null);
+
+		articleTable.getSelectionModel().selectedItemProperty().addListener(
+				((observableValue, oldValue, newValue) -> showDetail(newValue)));
+	}
 
 	public void onAddClick() {
 		//TODO popup add
-		try {
-			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/mgmt/crud/addUpdateArticle.fxml"));
-			AnchorPane subView = loader.load();
-
-			window = (Stage) add.getScene().getWindow();
-			window.setTitle("Ajouter utilisateur");
-
-			window.setScene(new Scene(subView));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		switchScreen("/iramps.mvconstruction/mgmt/crud/addUpdateArticle.fxml", "Ajouter un article", add);
 	}
 
 	public void onDeleteClick() {
@@ -43,16 +49,20 @@ public class ArticlesController extends MgmtController {
 
 	public void onUpdateClick() {
 		//TODO same popup add but pre filled
-		try {
-			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/iramps.mvconstruction/mgmt/crud/addUpdateArticle.fxml"));
-			AnchorPane subView = loader.load();
+		switchScreen("/iramps.mvconstruction/mgmt/crud/addUpdateArticle.fxml", "Ajouter un article", add);
+	}
 
-			window = (Stage) add.getScene().getWindow();
-			window.setTitle("Update utilisateur");
-
-			window.setScene(new Scene(subView));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
+	private void showDetail(Article article) {
+		if (article != null) {
+			label.setText(article.getLabel());
+			price.setText(String.valueOf(article.getPrice()));
+			stock.setText(String.valueOf(article.getCurrentStockProperty()));
+			minStock.setText(String.valueOf(article.getMinStock()));
+		} else {
+			label.setText("");
+			price.setText("");
+			stock.setText("");
+			minStock.setText("");
 		}
 	}
 }

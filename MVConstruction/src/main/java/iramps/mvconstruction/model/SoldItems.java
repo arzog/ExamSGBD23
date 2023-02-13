@@ -33,16 +33,13 @@ public class SoldItems {
 		return billNumber;
 	}
 
-	//region setters
 	public void setBillNumber(String billNumber) {
 		this.billNumber = billNumber;
 	}
 
-	//region getters
 	public int getId() {
 		return id;
 	}
-	//endregion
 
 	public Map<Article, Integer> getItemCart() {
 		return itemCart;
@@ -51,5 +48,4 @@ public class SoldItems {
 	public void setItemCart(Map<Article, Integer> itemCart) {
 		this.itemCart = itemCart;
 	}
-	//endregion
 }

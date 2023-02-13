@@ -48,12 +48,10 @@ public class Client {
 		return firstname;
 	}
 
-	//region setters
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
 
-	//region getters
 	public int getId() {
 		return id;
 	}
@@ -65,7 +63,6 @@ public class Client {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-	//endregion
 
 	public String getMail() {
 		return mail;
@@ -90,5 +87,4 @@ public class Client {
 	public void setActive(boolean active) {
 		isActive = active;
 	}
-	//endregion
 }

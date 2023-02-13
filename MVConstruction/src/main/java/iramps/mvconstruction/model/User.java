@@ -9,10 +9,7 @@ public class User {
 
 	//region properties
 	private int id;
-	private String firstname;
-	private String lastname;
-	private String username;
-	private String pswd;
+	private String firstname, lastname, username, pswd;
 	private Boolean isActive;
 	private StringProperty firstnameProperty, lastnameProperty, usernameProperty, pswdProperty;
 	private BooleanProperty isActiveProperty;
@@ -21,6 +18,7 @@ public class User {
 	//region constructors
 	public User() {
 	}
+
 	public User(String firstname, String lastname, String username, String pswd, Boolean isActive) {
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -34,6 +32,7 @@ public class User {
 		pswdProperty = new SimpleStringProperty(pswd);
 		isActiveProperty = new SimpleBooleanProperty(isActive);
 	}
+
 	public User(int id, String firstname, String lastname, String username, String pswd, Boolean isActive) {
 		this.id = id;
 		this.firstname = firstname;
@@ -50,91 +49,68 @@ public class User {
 	}
 	//endregion
 
-	//region getters
 	public int getId() {
 		return id;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public String getPswd() {
-		return pswd;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public Boolean getActive() {
-		return isActive;
-	}
-
-	public String getFirstnameProperty() {
-		return firstnameProperty.get();
-	}
-
-	public String getLastnameProperty() {
-		return lastnameProperty.get();
-	}
-
-	public String getUsernameProperty() {
-		return usernameProperty.get();
-	}
-
-	public String getPswdProperty() {
-		return pswdProperty.get();
-	}
-
-	public Boolean getIsActiveProperty() {
-		return isActiveProperty.get();
 	}
 
 	public StringProperty firstnamePropertyProperty() {
 		return firstnameProperty;
 	}
 
-	public StringProperty lastnamePropertyProperty() {
-		return lastnameProperty;
+	public Boolean getActive() {
+		return isActive;
 	}
 
-	public StringProperty usernamePropertyProperty() {
-		return usernameProperty;
+	public Boolean getIsActiveProperty() {
+		return isActiveProperty.get();
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public String getPswd() {
+		return pswd;
+	}
+
+	public String getPswdProperty() {
+		return pswdProperty.get();
+	}
+
+	public String getLastnameProperty() {
+		return lastnameProperty.get();
+	}
+
+	public StringProperty lastnamePropertyProperty() {
+		return lastnameProperty;
 	}
 
 	public StringProperty pswdPropertyProperty() {
 		return pswdProperty;
 	}
 
-	public boolean isIsActiveProperty() {
-		return isActiveProperty.get();
+	public StringProperty usernamePropertyProperty() {
+		return usernameProperty;
 	}
 
-	public BooleanProperty isActivePropertyProperty() {
-		return isActiveProperty;
+	public String getFirstnameProperty() {
+		return firstnameProperty.get();
 	}
-	//endregion
 
-	//region setters
+	public String getUsername() {
+		return username;
+	}
+
+	public String getUsernameProperty() {
+		return usernameProperty.get();
+	}
+
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public void setPswd(String pswd) {
-		this.pswd = pswd;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public void setActive(Boolean active) {
@@ -145,20 +121,39 @@ public class User {
 		this.firstnameProperty.set(firstnameProperty);
 	}
 
-	public void setLastnameProperty(final String lastnameProperty) {
-		this.lastnameProperty.set(lastnameProperty);
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public void setUsernameProperty(final String usernameProperty) {
 		this.usernameProperty.set(usernameProperty);
 	}
 
-	public void setPswdProperty(final String pswdProperty) {
-		this.pswdProperty.set(pswdProperty);
+	public BooleanProperty isActivePropertyProperty() {
+		return isActiveProperty;
+	}
+
+	public boolean isIsActiveProperty() {
+		return isActiveProperty.get();
 	}
 
 	public void setIsActiveProperty(final Boolean isActiveProperty) {
 		this.isActiveProperty.set(isActiveProperty);
 	}
-	//endregion
+
+	public void setLastnameProperty(final String lastnameProperty) {
+		this.lastnameProperty.set(lastnameProperty);
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public void setPswd(String pswd) {
+		this.pswd = pswd;
+	}
+
+	public void setPswdProperty(final String pswdProperty) {
+		this.pswdProperty.set(pswdProperty);
+	}
 }

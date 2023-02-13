@@ -75,7 +75,6 @@ public class Bill {
 		this.company = company;
 	}
 
-	//region getters
 	public int getId() {
 		return id;
 	}
@@ -87,7 +86,6 @@ public class Bill {
 	public void setItems(SoldItems items) {
 		this.items = items;
 	}
-	//endregion
 
 	public User getSeller() {
 		return seller;
@@ -101,7 +99,6 @@ public class Bill {
 		return soldDate;
 	}
 
-	//region setters
 	public void setSoldDate(Date soldDate) {
 		this.soldDate = soldDate;
 	}
@@ -113,5 +110,4 @@ public class Bill {
 	public void setForCompany(boolean forCompany) {
 		this.forCompany = forCompany;
 	}
-	//endregion
 }

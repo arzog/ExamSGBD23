@@ -62,6 +62,14 @@ public class UsersController extends MgmtController {
 		switchScreen("/iramps.mvconstruction/mgmt/crud/addUpdateUser.fxml", "Mettre un utilisateur à jour", update);
 	}
 
+	public void showPswd() {
+		if (showPswd.isSelected()) {
+			password.setText(memPswd);
+		} else {
+			password.setText("*******");
+		}
+	}
+
 	private void showDetail(User user) {
 		if (user != null) {
 			name.setText(user.getLastname());
@@ -74,14 +82,6 @@ public class UsersController extends MgmtController {
 			firstname.setText("");
 			username.setText("");
 			password.setText("");
-		}
-	}
-
-	public void showPswd() {
-		if (showPswd.isSelected()) {
-			password.setText(memPswd);
-		} else {
-			password.setText("*******");
 		}
 	}
 }

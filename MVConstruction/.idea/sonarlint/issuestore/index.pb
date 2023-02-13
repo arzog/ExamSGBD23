@@ -1,16 +1,6 @@
 
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-f
-6src/main/java/iramps/mvconstruction/model/Address.java,e\b\eb75a40fc35320a41fdf0a90f1315242d721b6a7
-f
-6src/main/java/iramps/mvconstruction/model/Article.java,b\9\b9b5ade746b1b8e411c6fb2e7c5db2c9c0969456
-e
-5src/main/java/iramps/mvconstruction/model/Client.java,b\6\b66a9b2cb54d114572184f3da1b23884b358ee98
-f
-6src/main/java/iramps/mvconstruction/model/Company.java,2\2\22ab4ee973dcb61954d22426b33e7b6f43893d6f
-c
-3src/main/java/iramps/mvconstruction/model/Bill.java,a\b\abd2c944518b5fe9de76df709d193f0d7b8d09cd
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 :
@@ -24,25 +14,17 @@ n
 >src/main/java/iramps/mvconstruction/dao/implement/BillDao.java,7\c\7c425744c7a4eb7f717eb5142a95209ac56b2943
 q
 Asrc/main/java/iramps/mvconstruction/dao/implement/CompanyDao.java,0\3\036aeef34e3ed3af56075f18acadd5fbbaaedeea
-h
-8src/main/java/iramps/mvconstruction/model/SoldItems.java,1\6\168f3d00defa733e690f73454b613aa0fae40471
 N
 src/main/java/module-info.java,1\c\1c89a5491fbfda3fb050196d6a239f20200296e7
 x
 Hsrc/main/java/iramps/mvconstruction/controller/mgmt/BillsController.java,7\3\73eeff9b495b5c153ecc78b2d8cb28544a5d9b0c
 o
 ?src/main/java/iramps/mvconstruction/singleton/DBConnection.java,b\0\b0cb75922400f1ed3cb47b874caf42fb1561a86c
-q
-Asrc/main/java/iramps/mvconstruction/dao/implement/AddressDao.java,e\4\e428d618c62d3693d70359ce88891e71753ae205
 k
 ;src/main/java/iramps/mvconstruction/factory/DaoFactory.java,c\a\ca35fd535762e80ddf416ff77da96f28e9287bc3
 `
 0src/main/java/iramps/mvconstruction/dao/Dao.java,2\e\2e4e0fceb2378258985ec8a5eb94b6db3852dfaa
 p
 @src/main/java/iramps/mvconstruction/dao/implement/ClientDao.java,f\0\f07e2860b611ff736d253c494f7953f1d5e0743e
-{
-Ksrc/main/java/iramps/mvconstruction/controller/mgmt/ArticlesController.java,d\4\d4339612ba63458bcc4188139dffc8953309aa5f
 z
 Jsrc/main/java/iramps/mvconstruction/controller/mgmt/ClientsController.java,8\c\8ca8fd1864c865f334c691c77698187f1d79679b
-r
-Bsrc/main/java/iramps/mvconstruction/controller/HomeController.java,1\b\1bd03d53405efbcd23add27441071d598c1c476c

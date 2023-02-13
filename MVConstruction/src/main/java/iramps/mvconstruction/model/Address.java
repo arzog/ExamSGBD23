@@ -31,7 +31,6 @@ public class Address {
 		this.street = street;
 		this.number = number;
 	}
-	//endregion
 
 	public String getCity() {
 		return city;
@@ -45,12 +44,10 @@ public class Address {
 		return country;
 	}
 
-	//region setter
 	public void setCountry(String country) {
 		this.country = country;
 	}
 
-	//region getter
 	public int getId() {
 		return id;
 	}
@@ -58,7 +55,6 @@ public class Address {
 	public String getNumber() {
 		return number;
 	}
-	//endregion
 
 	public void setNumber(String number) {
 		this.number = number;
@@ -79,5 +75,4 @@ public class Address {
 	public void setZipCode(int zipCode) {
 		this.zipCode = zipCode;
 	}
-	//endregion
 }

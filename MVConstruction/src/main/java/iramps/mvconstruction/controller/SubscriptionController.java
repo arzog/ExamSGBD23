@@ -57,10 +57,6 @@ public class SubscriptionController extends ScreenController {
 		}
 	}
 
-	private boolean isPswdSecured(String pswd) {
-		return pswd.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:;<>,.?~_+-=|]).{8,18}$");
-	}
-
 	private boolean checkFields() {
 		final AtomicBoolean textOK = new AtomicBoolean(false);
 		final AtomicBoolean pswdOK = new AtomicBoolean(false);
@@ -88,7 +84,6 @@ public class SubscriptionController extends ScreenController {
 							} else {
 								if (passwordField.getId().equals("pswd") && isPswdSecured(passwordField.getText())) {
 									passwordField.setStyle(GREEN);
-									pswdOK.set(true);
 								} else if (passwordField.getId().equals("pswdConfirm") && passwordField.getText().equals(pswd.getText())) {
 									passwordField.setStyle(GREEN);
 									pswdOK.set(true);
@@ -101,6 +96,10 @@ public class SubscriptionController extends ScreenController {
 						throw new RuntimeException(e);
 					}
 				});
-		return pswdOK.get() & textOK.get();
+		return pswdOK.get() && textOK.get();
+	}
+
+	private boolean isPswdSecured(String pswd) {
+		return pswd.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:;<>,.?~_+-=|]).{8,18}$");
 	}
 }

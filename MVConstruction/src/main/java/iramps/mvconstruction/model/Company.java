@@ -44,7 +44,6 @@ public class Company {
 		this.address = address;
 	}
 
-	//region getters
 	public int getId() {
 		return id;
 	}
@@ -64,13 +63,11 @@ public class Company {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	//endregion
 
 	public String getName() {
 		return name;
 	}
 
-	//region setters
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -90,5 +87,4 @@ public class Company {
 	public void setVat(String vat) {
 		this.vat = vat;
 	}
-	//endregion
 }
