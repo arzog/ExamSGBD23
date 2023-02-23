@@ -15,4 +15,5 @@ public class MgmtController extends ScreenController {
 	public void onBackClick() {
 		switchScreen("/iramps.mvconstruction/home.fxml", "Accueil", back);
 	}
+
 }

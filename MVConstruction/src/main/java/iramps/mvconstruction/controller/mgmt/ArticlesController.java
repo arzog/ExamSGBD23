@@ -40,7 +40,7 @@ public class ArticlesController extends MgmtController {
 
 	public void onAddClick() {
 		//TODO popup add
-		switchScreen("/iramps.mvconstruction/mgmt/crud/addUpdateArticle.fxml", "Ajouter un article", add);
+		switchScreen("/iramps.mvconstruction/mgmt/crud/addArticle.fxml", "Ajouter un article", add);
 	}
 
 	public void onDeleteClick() {
@@ -49,7 +49,7 @@ public class ArticlesController extends MgmtController {
 
 	public void onUpdateClick() {
 		//TODO same popup add but pre filled
-		switchScreen("/iramps.mvconstruction/mgmt/crud/addUpdateArticle.fxml", "Ajouter un article", add);
+		switchScreen("/iramps.mvconstruction/mgmt/crud/addArticle.fxml", "Ajouter un article", add);
 	}
 
 	private void showDetail(Article article) {

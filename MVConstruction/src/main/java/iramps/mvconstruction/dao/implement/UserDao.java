@@ -19,6 +19,14 @@ public class UserDao extends Dao<User> {
 	@Override
 	public boolean create(User user) {
 		try {
+
+			readAll().forEach(entry -> {
+				if (user.equals(entry)) {
+					//Todo	entry already exist
+					throw new RuntimeException();
+				}
+			});
+
 			PreparedStatement statement = connection.prepareStatement("insert into users(firstname,lastname,username,passwd,isActive) values (?,?,?,?,?)");
 			statement.setString(1, user.getFirstname());
 			statement.setString(2, user.getLastname());
@@ -36,23 +44,16 @@ public class UserDao extends Dao<User> {
 
 	@Override
 	public boolean deleteByObject(User user) {
-		try {
-			PreparedStatement statement = connection.prepareStatement("delete from users where id = ?");
-			statement.setInt(1, user.getId());
-
-			statement.executeUpdate();
-			statement.close();
-			return true;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+		user.setActive(false);
+		User updatedUser = updateById(user);
+		return updatedUser != null;
 	}
 
 	@Override
 	public List<User> readAll() {
 		List<User> users = new ArrayList<>();
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from users");
+			PreparedStatement statement = connection.prepareStatement("select * from users where isActive = 1");
 
 			ResultSet set = statement.executeQuery();
 
@@ -62,6 +63,7 @@ public class UserDao extends Dao<User> {
 			statement.close();
 			return users;
 		} catch (SQLException e) {
+			//TODO add specific exception
 			throw new RuntimeException(e);
 		}
 	}
@@ -79,6 +81,7 @@ public class UserDao extends Dao<User> {
 				return new User(id, set.getString("firstname"), set.getString("lastname"), set.getString("username"), set.getString("passwd"), set.getBoolean("isActive"));
 			}
 		} catch (SQLException e) {
+			//TODO add specific exception
 			throw new RuntimeException(e);
 		}
 		return null;
@@ -96,6 +99,7 @@ public class UserDao extends Dao<User> {
 				return new User(set.getInt("id"), set.getString("firstname"), name, set.getString("username"), set.getString("passwd"), set.getBoolean("isActive"));
 			}
 		} catch (SQLException e) {
+			//TODO add specific exception
 			throw new RuntimeException(e);
 		}
 		return null;
@@ -116,6 +120,7 @@ public class UserDao extends Dao<User> {
 			statement.close();
 			return user;
 		} catch (SQLException e) {
+			//TODO add specific exception
 			throw new RuntimeException(e);
 		}
 	}

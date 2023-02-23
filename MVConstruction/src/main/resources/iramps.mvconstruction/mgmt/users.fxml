@@ -8,6 +8,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -45,6 +46,10 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
+                        <TextField fx:id="tfName" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfFirstname"  GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfUsername" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfPswd" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                 <Label text="Nom">
                                     <GridPane.margin>
                                         <Insets left="10.0" />
@@ -69,17 +74,18 @@
                                     </GridPane.margin>
                                 </Label>
                                 <Label fx:id="password" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <CheckBox fx:id="showPswd" mnemonicParsing="false" text="Afficher le mot de passe" GridPane.columnIndex="1" GridPane.rowIndex="4" onAction="#showPswd"/>
+                        <CheckBox fx:id="showPswd" mnemonicParsing="false" onAction="#showPswd" text="Afficher le mot de passe" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                             </children>
                         </GridPane>
                         <ButtonBar layoutX="80.0" layoutY="339.0" prefHeight="40.0" prefWidth="200.0">
                             <buttons>
-                                <Button mnemonicParsing="false" text="Ajouter" />
-                                <Button mnemonicParsing="false" text="Modifier" />
-                                <Button mnemonicParsing="false" text="Supprimer" />
+                                <Button fx:id="add" mnemonicParsing="false" onAction="#onAddClick" text="Ajouter" />
+                                <Button mnemonicParsing="false" onAction="#onUpdateClick" text="Modifier" />
+                                <Button mnemonicParsing="false" onAction="#onDeleteClick" text="Supprimer" />
                             </buttons>
                         </ButtonBar>
                         <Button fx:id="back" layoutX="14.0" layoutY="347.0" mnemonicParsing="false" onAction="#onBackClick" prefHeight="25.0" prefWidth="75.0" text="Retour" />
+                  <Button fx:id="refresh" layoutX="15.0" layoutY="314.0" mnemonicParsing="false" onAction="#refresh" prefHeight="25.0" prefWidth="149.0" text="Rafraichir" />
                     </children>
                 </AnchorPane>
             </items>

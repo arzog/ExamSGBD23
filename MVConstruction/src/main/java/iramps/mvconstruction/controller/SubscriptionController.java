@@ -61,7 +61,7 @@ public class SubscriptionController extends ScreenController {
 		final AtomicBoolean textOK = new AtomicBoolean(false);
 		final AtomicBoolean pswdOK = new AtomicBoolean(false);
 
-		Arrays.stream(SubscriptionController.class.getDeclaredFields())
+		Arrays.stream(this.getClass().getDeclaredFields())
 				.filter(field -> field.getType().getName().contains("TextField") || field.getType().getName().contains("PasswordField"))
 				.forEach(field -> {
 					try {

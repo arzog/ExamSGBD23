@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.Objects;
+
 public class User {
 
 	//region properties
@@ -155,5 +157,21 @@ public class User {
 
 	public void setPswdProperty(final String pswdProperty) {
 		this.pswdProperty.set(pswdProperty);
+	}
+
+	@Override
+	public boolean equals(final Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof final User user)) {
+			return false;
+		}
+		return firstname.equals(user.firstname) && lastname.equals(user.lastname) && username.equals(user.username) && pswd.equals(user.pswd) && isActive.equals(user.isActive);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, firstname, lastname, username, pswd, isActive, firstnameProperty, lastnameProperty, usernameProperty, pswdProperty, isActiveProperty);
 	}
 }
