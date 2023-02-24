@@ -95,7 +95,6 @@ public class UsersController extends MgmtController {
 			dao.deleteByObject(selectedUser);
 			refresh();
 		}
-
 	}
 
 	public void onUpdateClick() {
@@ -140,6 +139,25 @@ public class UsersController extends MgmtController {
 		}
 	}
 
+	private User extractUser() {
+
+		User user = dao.readByName(tfUsername.getText());
+
+		if (user != null) {
+			return new User(
+					user.getId(),
+					tfFirstname.getText(),
+					tfName.getText(),
+					tfUsername.getText(),
+					memPswd,
+					user.getIsActiveProperty()
+			);
+		} else {
+			updating = false;
+			return null;
+		}
+	}
+
 	private void showDetail(User user) {
 		if (user != null) {
 			name.setText(user.getLastname());
@@ -158,25 +176,6 @@ public class UsersController extends MgmtController {
 			firstname.setText("");
 			username.setText("");
 			password.setText("");
-		}
-	}
-
-	private User extractUser() {
-
-		User user = dao.readByName(tfUsername.getText());
-
-		if (user != null) {
-			return new User(
-					user.getId(),
-					tfFirstname.getText(),
-					tfName.getText(),
-					tfUsername.getText(),
-					memPswd,
-					user.getIsActiveProperty()
-			);
-		} else {
-			updating = false;
-			return null;
 		}
 	}
 }

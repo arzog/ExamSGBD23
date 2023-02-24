@@ -2,6 +2,8 @@ package iramps.mvconstruction.dao.implement;
 
 import iramps.mvconstruction.dao.Dao;
 import iramps.mvconstruction.model.User;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UserDao extends Dao<User> {
 
@@ -19,24 +22,33 @@ public class UserDao extends Dao<User> {
 	@Override
 	public boolean create(User user) {
 		try {
-
+			final AtomicBoolean isPresent = new AtomicBoolean(false);
 			readAll().forEach(entry -> {
-				if (user.equals(entry)) {
-					//Todo	entry already exist
-					throw new RuntimeException();
+				if (entry.getUsername().equalsIgnoreCase(user.getUsername())) {
+					isPresent.set(true);
 				}
 			});
 
-			PreparedStatement statement = connection.prepareStatement("insert into users(firstname,lastname,username,passwd,isActive) values (?,?,?,?,?)");
-			statement.setString(1, user.getFirstname());
-			statement.setString(2, user.getLastname());
-			statement.setString(3, user.getUsername());
-			statement.setString(4, user.getPswd());
-			statement.setBoolean(5, user.getActive());
+			if (!isPresent.get()) {
+				PreparedStatement statement = connection.prepareStatement("insert into users(firstname,lastname,username,passwd,isActive) values (?,?,?,?,?)");
+				statement.setString(1, user.getFirstname());
+				statement.setString(2, user.getLastname());
+				statement.setString(3, user.getUsername());
+				statement.setString(4, user.getPswd());
+				statement.setBoolean(5, user.getActive());
 
-			statement.executeUpdate();
-			statement.close();
-			return true;
+				statement.executeUpdate();
+				statement.close();
+				return true;
+			} else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Utilisateur existant");
+				alert.setHeaderText("Echec");
+				alert.setResizable(false);
+				alert.setContentText("Utilisateur existant");
+				alert.showAndWait();
+				return false;
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -63,7 +75,6 @@ public class UserDao extends Dao<User> {
 			statement.close();
 			return users;
 		} catch (SQLException e) {
-			//TODO add specific exception
 			throw new RuntimeException(e);
 		}
 	}
@@ -81,7 +92,6 @@ public class UserDao extends Dao<User> {
 				return new User(id, set.getString("firstname"), set.getString("lastname"), set.getString("username"), set.getString("passwd"), set.getBoolean("isActive"));
 			}
 		} catch (SQLException e) {
-			//TODO add specific exception
 			throw new RuntimeException(e);
 		}
 		return null;
@@ -99,7 +109,6 @@ public class UserDao extends Dao<User> {
 				return new User(set.getInt("id"), set.getString("firstname"), name, set.getString("username"), set.getString("passwd"), set.getBoolean("isActive"));
 			}
 		} catch (SQLException e) {
-			//TODO add specific exception
 			throw new RuntimeException(e);
 		}
 		return null;
@@ -120,7 +129,6 @@ public class UserDao extends Dao<User> {
 			statement.close();
 			return user;
 		} catch (SQLException e) {
-			//TODO add specific exception
 			throw new RuntimeException(e);
 		}
 	}

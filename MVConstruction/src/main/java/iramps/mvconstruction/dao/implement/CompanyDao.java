@@ -2,6 +2,8 @@ package iramps.mvconstruction.dao.implement;
 
 import iramps.mvconstruction.dao.Dao;
 import iramps.mvconstruction.model.Company;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CompanyDao extends Dao<Company> {
 
@@ -21,18 +24,37 @@ public class CompanyDao extends Dao<Company> {
 	@Override
 	public boolean create(Company company) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("insert into companies(name,vat,mail,phone,isActive,id_address) values (?,?,?,?,?,?)");
-			statement.setString(1, company.getName());
-			statement.setString(2, company.getVat());
-			statement.setString(3, company.getMail());
-			statement.setString(4, company.getPhone());
-			statement.setBoolean(5, company.getIsActive());
-			statement.setInt(6, company.getAddress().getId());
+			final AtomicBoolean isPresent = new AtomicBoolean(false);
+			readAll().forEach(com -> {
+				if (com.getName().equalsIgnoreCase(company.getName()) && com.getVat().equalsIgnoreCase(company.getVat())) {
+					isPresent.set(true);
+				}
+			});
 
-			statement.executeUpdate();
-			statement.close();
-			System.out.println("success");
-			return true;
+			if (!isPresent.get()) {
+				address.create(company.getAddress());
+				int id_address = address.readByAddress(company.getAddress()).getId();
+
+				PreparedStatement statement = connection.prepareStatement("insert into companies(name,vat,mail,phone,isActive,id_address) values (?,?,?,?,?,?)");
+				statement.setString(1, company.getName());
+				statement.setString(2, company.getVat());
+				statement.setString(3, company.getMail());
+				statement.setString(4, company.getPhone());
+				statement.setBoolean(5, company.getIsActive());
+				statement.setInt(6, id_address);
+
+				statement.executeUpdate();
+				statement.close();
+				return true;
+			} else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Société existante");
+				alert.setHeaderText("Echec");
+				alert.setResizable(false);
+				alert.setContentText("Société existante");
+				alert.showAndWait();
+				return false;
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -40,33 +62,24 @@ public class CompanyDao extends Dao<Company> {
 
 	@Override
 	public boolean deleteByObject(Company company) {
-		try {
-			PreparedStatement statement = connection.prepareStatement("delete from companies where id = ?");
-			statement.setInt(1, company.getId());
-
-			statement.executeUpdate();
-			statement.close();
-			System.out.println("success");
-			return true;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+		company.setActive(false);
+		Company updatedCompany = updateById(company);
+		return updatedCompany != null;
 	}
 
 	@Override
 	public List<Company> readAll() {
 		List<Company> companies = new ArrayList<>();
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from companies where name like ?");
+			PreparedStatement statement = connection.prepareStatement("select * from companies where isActive = 1");
 
 			ResultSet set = statement.executeQuery();
-			statement.close();
 
 			while (set.next()) {
 				companies.add(new Company(set.getInt("id"), set.getString("name"), set.getString("vat"), set.getString("mail"), set.getString("phone"), set.getBoolean("isActive"),
 										  address.readById(set.getInt("id_address"))));
 			}
-			System.out.println("success");
+			statement.close();
 			return companies;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -86,7 +99,6 @@ public class CompanyDao extends Dao<Company> {
 				return new Company(id, set.getString("name"), set.getString("vat"), set.getString("mail"), set.getString("phone"), set.getBoolean("isActive"),
 								   address.readById(set.getInt("id_address")));
 			}
-			System.out.println("success");
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

@@ -51,8 +51,15 @@ public class User {
 	}
 	//endregion
 
-	public int getId() {
-		return id;
+	@Override
+	public boolean equals(final Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof final User user)) {
+			return false;
+		}
+		return firstname.equals(user.firstname) && lastname.equals(user.lastname) && username.equals(user.username) && pswd.equals(user.pswd) && isActive.equals(user.isActive);
 	}
 
 	public StringProperty firstnamePropertyProperty() {
@@ -63,72 +70,85 @@ public class User {
 		return isActive;
 	}
 
-	public Boolean getIsActiveProperty() {
-		return isActiveProperty.get();
+	public void setActive(Boolean active) {
+		isActive = active;
 	}
 
 	public String getFirstname() {
 		return firstname;
 	}
 
-	public String getLastname() {
-		return lastname;
-	}
-
-	public String getPswd() {
-		return pswd;
-	}
-
-	public String getPswdProperty() {
-		return pswdProperty.get();
-	}
-
-	public String getLastnameProperty() {
-		return lastnameProperty.get();
-	}
-
-	public StringProperty lastnamePropertyProperty() {
-		return lastnameProperty;
-	}
-
-	public StringProperty pswdPropertyProperty() {
-		return pswdProperty;
-	}
-
-	public StringProperty usernamePropertyProperty() {
-		return usernameProperty;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
 	public String getFirstnameProperty() {
 		return firstnameProperty.get();
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public String getUsernameProperty() {
-		return usernameProperty.get();
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public void setActive(Boolean active) {
-		isActive = active;
-	}
-
 	public void setFirstnameProperty(final String firstnameProperty) {
 		this.firstnameProperty.set(firstnameProperty);
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public Boolean getIsActiveProperty() {
+		return isActiveProperty.get();
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getLastnameProperty() {
+		return lastnameProperty.get();
+	}
+
+	public void setLastnameProperty(final String lastnameProperty) {
+		this.lastnameProperty.set(lastnameProperty);
+	}
+
+	public String getPswd() {
+		return pswd;
+	}
+
+	public void setPswd(String pswd) {
+		this.pswd = pswd;
+	}
+
+	public String getPswdProperty() {
+		return pswdProperty.get();
+	}
+
+	public void setPswdProperty(final String pswdProperty) {
+		this.pswdProperty.set(pswdProperty);
+	}
+
+	public String getUsername() {
+		return username;
 	}
 
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
+	public String getUsernameProperty() {
+		return usernameProperty.get();
+	}
+
 	public void setUsernameProperty(final String usernameProperty) {
 		this.usernameProperty.set(usernameProperty);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, firstname, lastname, username, pswd, isActive, firstnameProperty, lastnameProperty, usernameProperty, pswdProperty, isActiveProperty);
 	}
 
 	public BooleanProperty isActivePropertyProperty() {
@@ -143,35 +163,15 @@ public class User {
 		this.isActiveProperty.set(isActiveProperty);
 	}
 
-	public void setLastnameProperty(final String lastnameProperty) {
-		this.lastnameProperty.set(lastnameProperty);
+	public StringProperty lastnamePropertyProperty() {
+		return lastnameProperty;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public StringProperty pswdPropertyProperty() {
+		return pswdProperty;
 	}
 
-	public void setPswd(String pswd) {
-		this.pswd = pswd;
-	}
-
-	public void setPswdProperty(final String pswdProperty) {
-		this.pswdProperty.set(pswdProperty);
-	}
-
-	@Override
-	public boolean equals(final Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof final User user)) {
-			return false;
-		}
-		return firstname.equals(user.firstname) && lastname.equals(user.lastname) && username.equals(user.username) && pswd.equals(user.pswd) && isActive.equals(user.isActive);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, firstname, lastname, username, pswd, isActive, firstnameProperty, lastnameProperty, usernameProperty, pswdProperty, isActiveProperty);
+	public StringProperty usernamePropertyProperty() {
+		return usernameProperty;
 	}
 }

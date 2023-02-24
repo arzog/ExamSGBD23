@@ -1,7 +1,6 @@
 package iramps.mvconstruction.controller.mgmt.crud;
 
 import iramps.mvconstruction.controller.mgmt.ModalController;
-import iramps.mvconstruction.controller.mgmt.UsersController;
 import iramps.mvconstruction.dao.implement.UserDao;
 import iramps.mvconstruction.factory.DaoFactory;
 import iramps.mvconstruction.model.User;
@@ -40,14 +39,16 @@ public class AddUserController extends ModalController {
 					true
 			));
 			window.close();
-		} else {
-			//TODO Throw error
 		}
 	}
 
 	public void onBackClick() {
 		Stage window = (Stage) back.getScene().getWindow();
 		window.close();
+	}
+
+	private boolean isPswdSecured(String pswd) {
+		return pswd.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:;<>,.?~_+-=|]).{8,18}$");
 	}
 
 	private boolean validateUser() {
@@ -91,9 +92,5 @@ public class AddUserController extends ModalController {
 					}
 				});
 		return pswdOK.get() && textOK.get();
-	}
-
-	private boolean isPswdSecured(String pswd) {
-		return pswd.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}:;<>,.?~_+-=|]).{8,18}$");
 	}
 }

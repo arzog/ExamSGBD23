@@ -2,6 +2,8 @@ package iramps.mvconstruction.dao.implement;
 
 import iramps.mvconstruction.dao.Dao;
 import iramps.mvconstruction.model.Client;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ClientDao extends Dao<Client> {
 
@@ -21,53 +24,65 @@ public class ClientDao extends Dao<Client> {
 	@Override
 	public boolean create(Client client) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("insert into clients(firstname,lastname,mail,phone,id_address,isActive) values (?,?,?,?,?,?)");
-			statement.setString(1, client.getFirstname());
-			statement.setString(2, client.getLastname());
-			statement.setString(3, client.getMail());
-			statement.setString(4, client.getPhone());
-			statement.setInt(5, client.getAddress().getId());
-			statement.setBoolean(6, client.isActive());
+			final AtomicBoolean isPresent = new AtomicBoolean(false);
 
-			statement.executeUpdate();
-			statement.close();
-			System.out.println("success");
-			return true;
+			address.create(client.getAddress());
+			int id_address = address.readByAddress(client.getAddress()).getId();
+
+			readAll().forEach(cli -> {
+				if (cli.getLastname().equalsIgnoreCase(client.getLastname()) && cli.getFirstname().equalsIgnoreCase(client.getFirstname())) {
+					isPresent.set(true);
+				}
+			});
+
+			if (!isPresent.get()) {
+
+				PreparedStatement statement = connection.prepareStatement("insert into clients(firstname,lastname,mail,phone,id_address,isActive) values (?,?,?,?,?,?)");
+				statement.setString(1, client.getFirstname());
+				statement.setString(2, client.getLastname());
+				statement.setString(3, client.getMail());
+				statement.setString(4, client.getPhone());
+				statement.setInt(5, id_address);
+				statement.setBoolean(6, client.isActive());
+
+				statement.executeUpdate();
+				statement.close();
+				return true;
+			} else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Client existant");
+				alert.setHeaderText("Echec");
+				alert.setResizable(false);
+				alert.setContentText("Client existant");
+				alert.showAndWait();
+				return false;
+			}
 		} catch (SQLException e) {
-			//TODO define custom exception
 			throw new RuntimeException(e);
 		}
 	}
 
 	@Override
 	public boolean deleteByObject(Client client) {
-		try {
-			PreparedStatement statement = connection.prepareStatement("delete from clients where id = ?");
-			statement.setInt(1, client.getId());
-
-			statement.close();
-			System.out.println("success");
-			return true;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+		client.setActive(false);
+		Client updatedClient = updateById(client);
+		return updatedClient != null;
 	}
 
 	@Override
 	public List<Client> readAll() {
 		List<Client> clients = new ArrayList<>();
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from clients");
+			PreparedStatement statement = connection.prepareStatement("select * from clients where isActive = 1");
 
 			ResultSet set = statement.executeQuery();
-			statement.close();
 
 			while (set.next()) {
 				clients.add(
 						new Client(set.getInt("id"), set.getString("firstname"), set.getString("lastname"), set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")),
 								   set.getBoolean("isActive")));
 			}
-			System.out.println("success");
+			statement.close();
 			return clients;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -88,7 +103,6 @@ public class ClientDao extends Dao<Client> {
 				return new Client(id, set.getString("firstname"), set.getString("lastname"), set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")),
 								  set.getBoolean("isActive"));
 			}
-			System.out.println("success");
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

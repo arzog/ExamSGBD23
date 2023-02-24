@@ -4,11 +4,8 @@ public class Address {
 
 	//region properties
 	private int id;
-	private String country;
-	private String city;
+	private String country, city, street, number;
 	private int zipCode;
-	private String street;
-	private String number;
 	//endregion
 
 	//region constructors
