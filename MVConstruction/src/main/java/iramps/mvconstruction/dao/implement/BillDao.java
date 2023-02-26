@@ -110,7 +110,8 @@ public class BillDao extends Dao<Bill> {
 	@Override
 	public Bill updateById(Bill bill) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("update bills set sold_date = ?, id_sold_items = ?, id_user = ?,id_client = ?, id_company = ?, for_company = ?");
+			PreparedStatement statement = connection.prepareStatement("update bills set sold_date = ?, id_sold_items = ?, id_user = ?,id_client = ?, id_company = ?, for_company = ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setDate(1, bill.getSoldDate());
 			statement.setInt(2, bill.getItems().getId());
 		} catch (SQLException e) {

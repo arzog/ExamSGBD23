@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iramps.mvconstruction.controller.mgmt.UsersController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" fx:controller="iramps.mvconstruction.controller.mgmt.UsersController">
 	<children>
 		<SplitPane dividerPositions="0.39464882943143814" layoutX="124.0" layoutY="30.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 				   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

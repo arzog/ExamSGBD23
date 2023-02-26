@@ -112,7 +112,8 @@ public class ClientDao extends Dao<Client> {
 	@Override
 	public Client readByName(String name) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from clients where lastname like ?");
+			PreparedStatement statement = connection.prepareStatement("select * from clients where lastname like ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setString(1, name);
 
 			ResultSet set = statement.executeQuery();
@@ -129,10 +130,31 @@ public class ClientDao extends Dao<Client> {
 		return null;
 	}
 
+	public Client readByName(String name, String firstname) {
+		try {
+			PreparedStatement statement = connection.prepareStatement("select * from clients where lastname like ? and firstname like ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			statement.setString(1, name);
+			statement.setString(2, firstname);
+
+			ResultSet set = statement.executeQuery();
+
+			if (set.first()) {
+				return new Client(set.getInt("id"), set.getString("firstname"), name, set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")),
+								  set.getBoolean("isActive"));
+			}
+			statement.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
 	@Override
 	public Client updateById(Client client) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("update clients set firstname = ?, lastname = ?, mail = ?, phone = ?, id_address = ?, isActive = ? where id = ?");
+			PreparedStatement statement = connection.prepareStatement("update clients set firstname = ?, lastname = ?, mail = ?, phone = ?, id_address = ?, isActive = ? where id = ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setString(1, client.getFirstname());
 			statement.setString(2, client.getLastname());
 			statement.setString(3, client.getMail());
@@ -143,8 +165,8 @@ public class ClientDao extends Dao<Client> {
 
 			statement.executeUpdate();
 			statement.close();
+			address.updateById(client.getAddress());
 
-			System.out.println("success");
 			return client;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

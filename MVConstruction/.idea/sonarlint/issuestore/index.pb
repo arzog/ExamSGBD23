@@ -8,8 +8,6 @@
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 s
 Csrc/main/java/iramps/mvconstruction/dao/implement/SoldItemsDao.java,7\4\74b88a378b292bab274720ed98e26eb6d6be1a12
-q
-Asrc/main/java/iramps/mvconstruction/dao/implement/ArticleDao.java,9\e\9e73ce3555efed0d0bd57b510d42adf497c39e07
 n
 >src/main/java/iramps/mvconstruction/dao/implement/BillDao.java,7\c\7c425744c7a4eb7f717eb5142a95209ac56b2943
 x
@@ -32,5 +30,3 @@ f
 6src/main/java/iramps/mvconstruction/model/Article.java,b\9\b9b5ade746b1b8e411c6fb2e7c5db2c9c0969456
 r
 Bsrc/main/java/iramps/mvconstruction/controller/HomeController.java,1\b\1bd03d53405efbcd23add27441071d598c1c476c
-{
-Ksrc/main/java/iramps/mvconstruction/controller/mgmt/ArticlesController.java,d\4\d4339612ba63458bcc4188139dffc8953309aa5f

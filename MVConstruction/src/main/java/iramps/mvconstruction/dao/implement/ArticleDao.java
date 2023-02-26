@@ -29,7 +29,6 @@ public class ArticleDao extends Dao<Article> {
 
 			statement.executeUpdate();
 			statement.close();
-			System.out.println("Article successfully created");
 			return true;
 		} catch (SQLException e) {
 			System.out.println("An issue occured while creating the article");
@@ -40,18 +39,9 @@ public class ArticleDao extends Dao<Article> {
 
 	@Override
 	public boolean deleteByObject(Article article) {
-		try {
-			PreparedStatement statement = connection.prepareStatement("delete from articles where id = ?");
-			statement.setInt(1, article.getId());
-
-			statement.executeUpdate();
-			statement.close();
-			System.out.println("Article successfully deleted");
-			return true;
-		} catch (SQLException e) {
-			System.out.println("An issue occured while creating the article");
-			throw new ArticleNotFoundException(e.getMessage());
-		}
+		article.setActive(false);
+		Article updatedArticle = updateById(article);
+		return updatedArticle != null;
 	}
 
 	@Override
@@ -92,7 +82,8 @@ public class ArticleDao extends Dao<Article> {
 	@Override
 	public Article readByName(String name) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from articles where label like ?");
+			PreparedStatement statement = connection.prepareStatement("select * from articles where label like ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setString(1, name);
 
 			ResultSet set = statement.executeQuery();
@@ -109,7 +100,8 @@ public class ArticleDao extends Dao<Article> {
 	@Override
 	public Article updateById(Article article) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("update articles set label = ?, price = ?, current_stock = ?, isActive = ?, min_stock = ? where id = ?");
+			PreparedStatement statement = connection.prepareStatement("update articles set label = ?, price = ?, current_stock = ?, isActive = ?, min_stock = ? where id = ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setString(1, article.getLabel());
 			statement.setDouble(2, article.getPrice());
 			statement.setInt(3, article.getCurrentStock());

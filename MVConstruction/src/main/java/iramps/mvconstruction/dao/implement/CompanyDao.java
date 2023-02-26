@@ -108,17 +108,17 @@ public class CompanyDao extends Dao<Company> {
 	@Override
 	public Company readByName(String name) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from companies where name like ?");
+			PreparedStatement statement = connection.prepareStatement("select * from companies where name like ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setString(1, name);
 
 			ResultSet set = statement.executeQuery();
-			statement.close();
 
 			if (set.first()) {
 				return new Company(set.getInt("id"), name, set.getString("vat"), set.getString("mail"), set.getString("phone"), set.getBoolean("isActive"),
 								   address.readById(set.getInt("id_address")));
 			}
-			System.out.println("success");
+			statement.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -128,7 +128,8 @@ public class CompanyDao extends Dao<Company> {
 	@Override
 	public Company updateById(Company company) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("update companies set name = ?, vat = ?, mail = ?, phone = ?, isActive = ?, id_address = ? where id = ?");
+			PreparedStatement statement = connection.prepareStatement("update companies set name = ?, vat = ?, mail = ?, phone = ?, isActive = ?, id_address = ? where id = ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setString(1, company.getName());
 			statement.setString(2, company.getVat());
 			statement.setString(3, company.getMail());
@@ -139,7 +140,8 @@ public class CompanyDao extends Dao<Company> {
 
 			statement.executeUpdate();
 			statement.close();
-			System.out.println("success");
+
+			address.updateById(company.getAddress());
 			return company;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

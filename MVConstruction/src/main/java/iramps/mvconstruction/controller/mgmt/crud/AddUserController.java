@@ -27,7 +27,6 @@ public class AddUserController extends ModalController {
 
 	public void onAddClick() {
 		Stage window = (Stage) back.getScene().getWindow();
-		window.close();
 		if (validateUser()) {
 			UserDao dao = (UserDao) DaoFactory.createUserDao();
 
@@ -68,6 +67,7 @@ public class AddUserController extends ModalController {
 							textField = (TextField) field.get(this);
 							if (textField.getText().equals("")) {
 								textField.setStyle(RED);
+								textOK.set(false);
 							} else {
 								textField.setStyle(GREEN);
 								textOK.set(true);
@@ -76,6 +76,7 @@ public class AddUserController extends ModalController {
 							passwordField = (PasswordField) field.get(this);
 							if (passwordField.getText().equals("")) {
 								passwordField.setStyle(RED);
+								textOK.set(false);
 							} else {
 								if (passwordField.getId().equals("pswd") && isPswdSecured(passwordField.getText())) {
 									passwordField.setStyle(GREEN);
@@ -84,6 +85,7 @@ public class AddUserController extends ModalController {
 									pswdOK.set(true);
 								} else {
 									passwordField.setStyle(RED);
+									pswdOK.set(true);
 								}
 							}
 						}

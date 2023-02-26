@@ -4,6 +4,7 @@ import iramps.mvconstruction.controller.MgmtController;
 import iramps.mvconstruction.dao.implement.ClientDao;
 import iramps.mvconstruction.dao.implement.CompanyDao;
 import iramps.mvconstruction.factory.DaoFactory;
+import iramps.mvconstruction.model.Address;
 import iramps.mvconstruction.model.Client;
 import iramps.mvconstruction.model.Company;
 import javafx.collections.FXCollections;
@@ -21,6 +22,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 public class ClientsController extends MgmtController {
@@ -85,7 +87,6 @@ public class ClientsController extends MgmtController {
 		clientTable.getSelectionModel().selectedItemProperty().addListener(
 				((observableValue, oldValue, newValue) -> {
 					showCompanyDetail(null);
-					selectedCompany = null;
 					showClientDetail(newValue);
 					selectedClient = newValue;
 				})
@@ -93,7 +94,6 @@ public class ClientsController extends MgmtController {
 		companyTable.getSelectionModel().selectedItemProperty().addListener(
 				((observableValue, oldValue, newValue) -> {
 					showClientDetail(null);
-					selectedClient = null;
 					showCompanyDetail(newValue);
 					selectedCompany = newValue;
 				})
@@ -104,7 +104,22 @@ public class ClientsController extends MgmtController {
 		if (!updating) {
 			callModal("/iramps.mvconstruction/mgmt/crud/addClient.fxml", "Ajouter un client ou une société", add);
 		} else {
-
+			if (radioClient.isSelected()) {
+				Client toUpdate = extractClient();
+				selectedClient = clientDao.updateById(toUpdate);
+			} else {
+				Company toUpdate = extractCompany();
+				selectedCompany = companyDao.updateById(toUpdate);
+			}
+			Alert success = new Alert(AlertType.INFORMATION);
+			success.setTitle("Mise à jour validée");
+			success.setHeaderText("Mise à jour validée");
+			success.setResizable(false);
+			success.setContentText("Entrée mise à jour");
+			Optional<ButtonType> result = success.showAndWait();
+			if (!result.isPresent() || result.get() == ButtonType.OK) {
+				refresh();
+			}
 		}
 	}
 
@@ -127,6 +142,11 @@ public class ClientsController extends MgmtController {
 
 	public void onUpdateClick() {
 		if (!updating) {
+			if (radioClient.isSelected()) {
+				emptyCompany();
+			} else {
+				emptyClient();
+			}
 			tfClientName.setVisible(true);
 			tfClientFirstname.setVisible(true);
 			tfClientPhone.setVisible(true);
@@ -312,5 +332,87 @@ public class ClientsController extends MgmtController {
 		tfComZipCode.setVisible(false);
 		tfComStreet.setVisible(false);
 		tfComNumber.setVisible(false);
+	}
+
+	private void emptyClient() {
+		Arrays.stream(this.getClass().getDeclaredFields())
+				.filter(field -> field.getType().getName().contains("TextField"))
+				.forEach(field -> {
+					try {
+						if (field.getName().equalsIgnoreCase("tfclient")) {
+							((TextField) field.get(this)).setText("");
+						}
+					} catch (IllegalAccessException e) {
+						throw new RuntimeException(e);
+					}
+				});
+	}
+
+	private void emptyCompany() {
+		Arrays.stream(this.getClass().getDeclaredFields())
+				.filter(field -> field.getType().getName().contains("TextField"))
+				.forEach(field -> {
+					try {
+						if (field.getName().equalsIgnoreCase("tfcom")) {
+							((TextField) field.get(this)).setText("");
+						}
+					} catch (IllegalAccessException e) {
+						throw new RuntimeException(e);
+					}
+				});
+	}
+
+	private Client extractClient() {
+		Client existingClient = clientDao.readByName(selectedClient.getLastname(), selectedClient.getFirstname());
+
+		if (existingClient != null) {
+			updating = false;
+			return new Client(
+					existingClient.getId(),
+					tfClientFirstname.getText(),
+					tfClientName.getText(),
+					tfClientMail.getText(),
+					tfClientPhone.getText(),
+					new Address(
+							existingClient.getAddress().getId(),
+							tfClientCountry.getText(),
+							tfClientCity.getText(),
+							Integer.parseInt(tfClientZipCode.getText()),
+							tfClientStreet.getText(),
+							tfClientNumber.getText()
+					),
+					true
+			);
+		} else {
+			updating = false;
+			return null;
+		}
+	}
+
+	private Company extractCompany() {
+		Company existingCompany = companyDao.readByName(selectedCompany.getName());
+
+		if (existingCompany != null) {
+			updating = false;
+			return new Company(
+					existingCompany.getId(),
+					tfComName.getText(),
+					tfComVat.getText(),
+					tfComMail.getText(),
+					tfComPhone.getText(),
+					true,
+					new Address(
+							existingCompany.getAddress().getId(),
+							tfComCountry.getText(),
+							tfComCity.getText(),
+							Integer.parseInt(tfComZipCode.getText()),
+							tfComStreet.getText(),
+							tfComNumber.getText()
+					)
+			);
+		} else {
+			updating = false;
+			return null;
+		}
 	}
 }

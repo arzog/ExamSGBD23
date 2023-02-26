@@ -100,7 +100,8 @@ public class UserDao extends Dao<User> {
 	@Override
 	public User readByName(String name) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from users where username like ?");
+			PreparedStatement statement = connection.prepareStatement("select * from users where username like ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setString(1, name);
 
 			ResultSet set = statement.executeQuery();
@@ -117,7 +118,8 @@ public class UserDao extends Dao<User> {
 	@Override
 	public User updateById(User user) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("update users set firstname = ?, lastname = ?, username = ?, passwd = ?, isActive = ? where id = ?");
+			PreparedStatement statement = connection.prepareStatement("update users set firstname = ?, lastname = ?, username = ?, passwd = ?, isActive = ? where id = ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setString(1, user.getFirstname());
 			statement.setString(2, user.getLastname());
 			statement.setString(3, user.getUsername());

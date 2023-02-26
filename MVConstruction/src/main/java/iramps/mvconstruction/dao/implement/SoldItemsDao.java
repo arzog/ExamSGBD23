@@ -103,7 +103,8 @@ public class SoldItemsDao extends Dao<SoldItems> {
 	public SoldItems readByName(String name) {
 		try {
 			List<SoldItems> items = new ArrayList<>();
-			PreparedStatement statement = connection.prepareStatement("select * from sold_items where bill_num like ?");
+			PreparedStatement statement = connection.prepareStatement("select * from sold_items where bill_num like ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setString(1, name);
 
 			ResultSet set = statement.executeQuery();
@@ -123,7 +124,8 @@ public class SoldItemsDao extends Dao<SoldItems> {
 	@Override
 	public SoldItems updateById(SoldItems soldItems) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("update sold_items set id_article = ?, qtt = ? where id = ?");
+			PreparedStatement statement = connection.prepareStatement("update sold_items set id_article = ?, qtt = ? where id = ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			soldItems.getItemCart().forEach((item, qtt) -> {
 				try {
 					statement.setInt(1, item.getId());

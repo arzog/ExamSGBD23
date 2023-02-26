@@ -136,7 +136,8 @@ public class AddressDao extends Dao<Address> {
 	@Override
 	public Address updateById(Address address) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("update addresses set country = ?, city  = ?, zip_code = ?, street = ?, number = ? where id = ?");
+			PreparedStatement statement = connection.prepareStatement("update addresses set country = ?, city  = ?, zip_code = ?, street = ?, number = ? where id = ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setString(1, address.getCountry());
 			statement.setString(2, address.getCity());
 			statement.setInt(3, address.getZipCode());

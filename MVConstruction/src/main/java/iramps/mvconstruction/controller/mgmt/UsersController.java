@@ -53,7 +53,9 @@ public class UsersController extends MgmtController {
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().lastnamePropertyProperty());
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstnamePropertyProperty());
 
-		showDetail(null);
+		if (!updating) {
+			showDetail(null);
+		}
 
 		userTable.getSelectionModel().selectedItemProperty().addListener(
 				((observableValue, oldValue, newValue) -> {
@@ -70,7 +72,7 @@ public class UsersController extends MgmtController {
 		} else {
 			User user = extractUser();
 			if (user != null) {
-				dao.updateById(user);
+				selectedUser = dao.updateById(user);
 				Alert success = new Alert(AlertType.INFORMATION);
 				success.setTitle("Mise à jour validée");
 				success.setHeaderText("Mise à jour validée");
@@ -99,34 +101,29 @@ public class UsersController extends MgmtController {
 
 	public void onUpdateClick() {
 		if (!updating) {
-			name.setVisible(false);
-			firstname.setVisible(false);
-			username.setVisible(false);
-			password.setVisible(false);
-
-			tfName.setVisible(true);
-			tfFirstname.setVisible(true);
-			tfUsername.setVisible(true);
-			tfPswd.setVisible(true);
-
-			updating = true;
+			switchDisplayUpdate(false, true);
 		} else {
-			name.setVisible(true);
-			firstname.setVisible(true);
-			username.setVisible(true);
-			password.setVisible(true);
-
-			tfName.setVisible(false);
-			tfFirstname.setVisible(false);
-			tfUsername.setVisible(false);
-			tfPswd.setVisible(false);
-
-			updating = false;
+			switchDisplayUpdate(true, false);
 		}
+	}
+
+	private void switchDisplayUpdate(final boolean b, final boolean b1) {
+		name.setVisible(b);
+		firstname.setVisible(b);
+		username.setVisible(b);
+		password.setVisible(b);
+
+		tfName.setVisible(b1);
+		tfFirstname.setVisible(b1);
+		tfUsername.setVisible(b1);
+		tfPswd.setVisible(b1);
+
+		updating = b1;
 	}
 
 	public void refresh() {
 		initialize();
+		showDetail(selectedUser);
 	}
 
 	public void showPswd() {
@@ -141,9 +138,10 @@ public class UsersController extends MgmtController {
 
 	private User extractUser() {
 
-		User user = dao.readByName(tfUsername.getText());
+		User user = dao.readByName(selectedUser.getUsername());
 
 		if (user != null) {
+			updating = false;
 			return new User(
 					user.getId(),
 					tfFirstname.getText(),
