@@ -236,104 +236,6 @@ public class ClientsController extends MgmtController {
 		initialize();
 	}
 
-	private void showClientDetail(Client client) {
-		if (client != null) {
-			clientLastname.setText(client.getLastname());
-			firstname.setText(client.getFirstname());
-			phoneClient.setText(client.getPhone());
-			mailClient.setText(client.getMail());
-			countryClient.setText(client.getAddress().getCountry());
-			cityClient.setText(client.getAddress().getCity());
-			zipCodeClient.setText(String.valueOf(client.getAddress().getZipCode()));
-			streetClient.setText(client.getAddress().getStreet());
-			numberClient.setText(client.getAddress().getNumber());
-
-			tfClientName.setText(client.getLastname());
-			tfClientFirstname.setText(client.getFirstname());
-			tfClientPhone.setText(client.getPhone());
-			tfClientMail.setText(client.getMail());
-			tfClientCountry.setText(client.getAddress().getCountry());
-			tfClientCity.setText(client.getAddress().getCity());
-			tfClientZipCode.setText(String.valueOf(client.getAddress().getZipCode()));
-			tfClientStreet.setText(client.getAddress().getStreet());
-			tfClientNumber.setText(client.getAddress().getNumber());
-
-			radioClient.setSelected(true);
-		} else {
-			clientLastname.setText("");
-			firstname.setText("");
-			phoneClient.setText("");
-			mailClient.setText("");
-			countryClient.setText("");
-			cityClient.setText("");
-			zipCodeClient.setText("");
-			streetClient.setText("");
-			numberClient.setText("");
-			radioClient.setSelected(false);
-		}
-	}
-
-	private void showCompanyDetail(Company company) {
-		if (company != null) {
-			companyLabel.setText(company.getName());
-			vat.setText(company.getVat());
-			phoneCompany.setText(company.getPhone());
-			mailCompany.setText(company.getMail());
-			countryCompany.setText(company.getAddress().getCountry());
-			cityCompany.setText(company.getAddress().getCity());
-			zipCodeCompany.setText(String.valueOf(company.getAddress().getZipCode()));
-			streetCompany.setText(company.getAddress().getStreet());
-			numberCompany.setText(company.getAddress().getNumber());
-
-			tfComName.setText(company.getName());
-			tfComVat.setText(company.getVat());
-			tfComPhone.setText(company.getPhone());
-			tfComMail.setText(company.getMail());
-			tfComCountry.setText(company.getAddress().getCountry());
-			tfComCity.setText(company.getAddress().getCity());
-			tfComZipCode.setText(String.valueOf(company.getAddress().getZipCode()));
-			tfComStreet.setText(company.getAddress().getStreet());
-			tfComNumber.setText(company.getAddress().getNumber());
-
-			radioCompany.setSelected(true);
-		} else {
-			companyLabel.setText("");
-			vat.setText("");
-			phoneCompany.setText("");
-			mailCompany.setText("");
-			countryCompany.setText("");
-			cityCompany.setText("");
-			zipCodeCompany.setText("");
-			streetCompany.setText("");
-			numberCompany.setText("");
-			radioCompany.setSelected(false);
-		}
-	}
-
-	private void hideTfClient() {
-		tfClientName.setVisible(false);
-		tfClientFirstname.setVisible(false);
-		tfClientPhone.setVisible(false);
-		tfClientMail.setVisible(false);
-		tfClientCountry.setVisible(false);
-		tfClientCity.setVisible(false);
-		tfClientZipCode.setVisible(false);
-		tfClientStreet.setVisible(false);
-		tfClientNumber.setVisible(false);
-	}
-
-	private void hideTfCompany() {
-		tfComName.setVisible(false);
-		tfComVat.setVisible(false);
-		tfComPhone.setVisible(false);
-		tfComMail.setVisible(false);
-		tfComCountry.setVisible(false);
-		tfComCity.setVisible(false);
-		tfComZipCode.setVisible(false);
-		tfComStreet.setVisible(false);
-		tfComNumber.setVisible(false);
-	}
-
 	private void emptyClient() {
 		Arrays.stream(this.getClass().getDeclaredFields())
 				.filter(field -> field.getType().getName().contains("TextField"))
@@ -413,6 +315,104 @@ public class ClientsController extends MgmtController {
 		} else {
 			updating = false;
 			return null;
+		}
+	}
+
+	private void hideTfClient() {
+		tfClientName.setVisible(false);
+		tfClientFirstname.setVisible(false);
+		tfClientPhone.setVisible(false);
+		tfClientMail.setVisible(false);
+		tfClientCountry.setVisible(false);
+		tfClientCity.setVisible(false);
+		tfClientZipCode.setVisible(false);
+		tfClientStreet.setVisible(false);
+		tfClientNumber.setVisible(false);
+	}
+
+	private void hideTfCompany() {
+		tfComName.setVisible(false);
+		tfComVat.setVisible(false);
+		tfComPhone.setVisible(false);
+		tfComMail.setVisible(false);
+		tfComCountry.setVisible(false);
+		tfComCity.setVisible(false);
+		tfComZipCode.setVisible(false);
+		tfComStreet.setVisible(false);
+		tfComNumber.setVisible(false);
+	}
+
+	private void showClientDetail(Client client) {
+		if (client != null) {
+			clientLastname.setText(client.getLastname());
+			firstname.setText(client.getFirstname());
+			phoneClient.setText(client.getPhone());
+			mailClient.setText(client.getMail());
+			countryClient.setText(client.getAddress().getCountry());
+			cityClient.setText(client.getAddress().getCity());
+			zipCodeClient.setText(String.valueOf(client.getAddress().getZipCode()));
+			streetClient.setText(client.getAddress().getStreet());
+			numberClient.setText(client.getAddress().getNumber());
+
+			tfClientName.setText(client.getLastname());
+			tfClientFirstname.setText(client.getFirstname());
+			tfClientPhone.setText(client.getPhone());
+			tfClientMail.setText(client.getMail());
+			tfClientCountry.setText(client.getAddress().getCountry());
+			tfClientCity.setText(client.getAddress().getCity());
+			tfClientZipCode.setText(String.valueOf(client.getAddress().getZipCode()));
+			tfClientStreet.setText(client.getAddress().getStreet());
+			tfClientNumber.setText(client.getAddress().getNumber());
+
+			radioClient.setSelected(true);
+		} else {
+			clientLastname.setText("");
+			firstname.setText("");
+			phoneClient.setText("");
+			mailClient.setText("");
+			countryClient.setText("");
+			cityClient.setText("");
+			zipCodeClient.setText("");
+			streetClient.setText("");
+			numberClient.setText("");
+			radioClient.setSelected(false);
+		}
+	}
+
+	private void showCompanyDetail(Company company) {
+		if (company != null) {
+			companyLabel.setText(company.getName());
+			vat.setText(company.getVat());
+			phoneCompany.setText(company.getPhone());
+			mailCompany.setText(company.getMail());
+			countryCompany.setText(company.getAddress().getCountry());
+			cityCompany.setText(company.getAddress().getCity());
+			zipCodeCompany.setText(String.valueOf(company.getAddress().getZipCode()));
+			streetCompany.setText(company.getAddress().getStreet());
+			numberCompany.setText(company.getAddress().getNumber());
+
+			tfComName.setText(company.getName());
+			tfComVat.setText(company.getVat());
+			tfComPhone.setText(company.getPhone());
+			tfComMail.setText(company.getMail());
+			tfComCountry.setText(company.getAddress().getCountry());
+			tfComCity.setText(company.getAddress().getCity());
+			tfComZipCode.setText(String.valueOf(company.getAddress().getZipCode()));
+			tfComStreet.setText(company.getAddress().getStreet());
+			tfComNumber.setText(company.getAddress().getNumber());
+
+			radioCompany.setSelected(true);
+		} else {
+			companyLabel.setText("");
+			vat.setText("");
+			phoneCompany.setText("");
+			mailCompany.setText("");
+			countryCompany.setText("");
+			cityCompany.setText("");
+			zipCodeCompany.setText("");
+			streetCompany.setText("");
+			numberCompany.setText("");
+			radioCompany.setSelected(false);
 		}
 	}
 }

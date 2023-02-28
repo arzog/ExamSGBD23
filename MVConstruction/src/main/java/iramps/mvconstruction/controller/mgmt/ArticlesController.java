@@ -117,25 +117,6 @@ public class ArticlesController extends MgmtController {
 		}
 	}
 
-	private void showDetail(Article article) {
-		if (article != null) {
-			label.setText(article.getLabel());
-			price.setText(String.valueOf(article.getPrice()));
-			stock.setText(String.valueOf(article.getCurrentStockProperty()));
-			minStock.setText(String.valueOf(article.getMinStock()));
-
-			tfName.setText(article.getLabel());
-			tfPrice.setText(String.valueOf(article.getPrice()));
-			tfCurrentStock.setText(String.valueOf(article.getCurrentStockProperty()));
-			tfMinStock.setText(String.valueOf(article.getMinStock()));
-		} else {
-			label.setText("");
-			price.setText("");
-			stock.setText("");
-			minStock.setText("");
-		}
-	}
-
 	public void refresh() {
 		initialize();
 	}
@@ -155,6 +136,25 @@ public class ArticlesController extends MgmtController {
 		} else {
 			updating = false;
 			return null;
+		}
+	}
+
+	private void showDetail(Article article) {
+		if (article != null) {
+			label.setText(article.getLabel());
+			price.setText(String.valueOf(article.getPrice()));
+			stock.setText(String.valueOf(article.getCurrentStockProperty()));
+			minStock.setText(String.valueOf(article.getMinStock()));
+
+			tfName.setText(article.getLabel());
+			tfPrice.setText(String.valueOf(article.getPrice()));
+			tfCurrentStock.setText(String.valueOf(article.getCurrentStockProperty()));
+			tfMinStock.setText(String.valueOf(article.getMinStock()));
+		} else {
+			label.setText("");
+			price.setText("");
+			stock.setText("");
+			minStock.setText("");
 		}
 	}
 }

@@ -107,20 +107,6 @@ public class UsersController extends MgmtController {
 		}
 	}
 
-	private void switchDisplayUpdate(final boolean b, final boolean b1) {
-		name.setVisible(b);
-		firstname.setVisible(b);
-		username.setVisible(b);
-		password.setVisible(b);
-
-		tfName.setVisible(b1);
-		tfFirstname.setVisible(b1);
-		tfUsername.setVisible(b1);
-		tfPswd.setVisible(b1);
-
-		updating = b1;
-	}
-
 	public void refresh() {
 		initialize();
 		showDetail(selectedUser);
@@ -175,5 +161,19 @@ public class UsersController extends MgmtController {
 			username.setText("");
 			password.setText("");
 		}
+	}
+
+	private void switchDisplayUpdate(final boolean b, final boolean b1) {
+		name.setVisible(b);
+		firstname.setVisible(b);
+		username.setVisible(b);
+		password.setVisible(b);
+
+		tfName.setVisible(b1);
+		tfFirstname.setVisible(b1);
+		tfUsername.setVisible(b1);
+		tfPswd.setVisible(b1);
+
+		updating = b1;
 	}
 }
