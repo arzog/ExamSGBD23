@@ -82,15 +82,16 @@ public class UserDao extends Dao<User> {
 	@Override
 	public User readById(int id) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from users where id = ?");
+			PreparedStatement statement = connection.prepareStatement("select * from users where id = ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setInt(1, id);
 
 			ResultSet set = statement.executeQuery();
-			statement.close();
 
 			if (set.first()) {
 				return new User(id, set.getString("firstname"), set.getString("lastname"), set.getString("username"), set.getString("passwd"), set.getBoolean("isActive"));
 			}
+			statement.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

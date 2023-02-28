@@ -92,17 +92,18 @@ public class ClientDao extends Dao<Client> {
 	@Override
 	public Client readById(int id) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from clients where id = ?");
+			PreparedStatement statement = connection.prepareStatement("select * from clients where id = ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setInt(1, id);
 
 			ResultSet set = statement.executeQuery();
-			statement.close();
 
 			if (set.first()) {
 
 				return new Client(id, set.getString("firstname"), set.getString("lastname"), set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")),
 								  set.getBoolean("isActive"));
 			}
+			statement.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -117,13 +118,12 @@ public class ClientDao extends Dao<Client> {
 			statement.setString(1, name);
 
 			ResultSet set = statement.executeQuery();
-			statement.close();
 
 			if (set.first()) {
 				return new Client(set.getInt("id"), set.getString("firstname"), name, set.getString("mail"), set.getString("phone"), address.readById(set.getInt("id_address")),
 								  set.getBoolean("isActive"));
 			}
-			System.out.println("success");
+			statement.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -164,8 +164,8 @@ public class ClientDao extends Dao<Client> {
 			statement.setInt(7, client.getId());
 
 			statement.executeUpdate();
-			statement.close();
 			address.updateById(client.getAddress());
+			statement.close();
 
 			return client;
 		} catch (SQLException e) {

@@ -53,25 +53,15 @@ public class AddressDao extends Dao<Address> {
 
 	@Override
 	public boolean deleteByObject(Address address) {
-		try {
-
-			PreparedStatement statement = connection.prepareStatement("delete from addresses where id = ?");
-			statement.setInt(1, address.getId());
-
-			statement.executeUpdate();
-			statement.close();
-			System.out.println("Address successfully deleted");
-			return true;
-		} catch (SQLException e) {
-			throw new AddressNotFoundException(e.getMessage());
-		}
+		return false;
 	}
 
 	@Override
 	public List<Address> readAll() {
 		try {
 			List<Address> addresses = new ArrayList<>();
-			PreparedStatement statement = connection.prepareStatement("select * from addresses");
+			PreparedStatement statement = connection.prepareStatement("select * from addresses",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
 			ResultSet set = statement.executeQuery();
 			while (set.next()) {
@@ -111,7 +101,8 @@ public class AddressDao extends Dao<Address> {
 	@Override
 	public Address readById(int id) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from addresses where id = ?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			PreparedStatement statement = connection.prepareStatement("select * from addresses where id = ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setInt(1, id);
 
 			ResultSet set = statement.executeQuery();

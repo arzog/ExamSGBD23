@@ -48,7 +48,8 @@ public class ArticleDao extends Dao<Article> {
 	public List<Article> readAll() {
 		List<Article> articles = new ArrayList<>();
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from articles");
+			PreparedStatement statement = connection.prepareStatement("select * from articles",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
 			ResultSet set = statement.executeQuery();
 			while (set.next()) {
@@ -64,7 +65,8 @@ public class ArticleDao extends Dao<Article> {
 	@Override
 	public Article readById(int id) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from articles where id=?");
+			PreparedStatement statement = connection.prepareStatement("select * from articles where id=?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setInt(1, id);
 
 			ResultSet set = statement.executeQuery();

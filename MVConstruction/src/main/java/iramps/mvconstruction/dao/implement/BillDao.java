@@ -20,6 +20,10 @@ public class BillDao extends Dao<Bill> {
 
 	public BillDao(Connection connection) {
 		super(connection);
+		userDao = new UserDao(connection);
+		clientDao = new ClientDao(connection);
+		companyDao = new CompanyDao(connection);
+		soldItemsDao = new SoldItemsDao(connection);
 	}
 
 	@Override
@@ -53,7 +57,8 @@ public class BillDao extends Dao<Bill> {
 	public List<Bill> readAll() {
 		try {
 			List<Bill> bills = new ArrayList<>();
-			PreparedStatement statement = connection.prepareStatement("select * from bills");
+			PreparedStatement statement = connection.prepareStatement("select * from bills",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
 			ResultSet set = statement.executeQuery();
 
@@ -64,8 +69,12 @@ public class BillDao extends Dao<Bill> {
 					bills.add(new Bill(set.getInt("id"), set.getDate("sold_date"), soldItemsDao.readById(set.getInt("id_sold_items")), userDao.readById(set.getInt("id_user")),
 									   companyDao.readById(set.getInt("id_company")), true));
 				} else {
-					bills.add(new Bill(set.getInt("id"), set.getDate("sold_date"), soldItemsDao.readById(set.getInt("id_sold_items")), userDao.readById(set.getInt("id_user")),
-									   clientDao.readById(set.getInt("id_client")), false));
+					bills.add(new Bill(set.getInt("id"),
+									   set.getDate("sold_date"),
+									   soldItemsDao.readById(set.getInt("id_sold_items")),
+									   userDao.readById(set.getInt("id_user")),
+									   clientDao.readById(set.getInt("id_client")),
+									   false));
 				}
 			}
 

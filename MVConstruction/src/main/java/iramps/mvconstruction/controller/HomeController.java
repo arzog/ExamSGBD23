@@ -57,7 +57,7 @@ public class HomeController {
 			AnchorPane subView = loader.load();
 
 			window = (Stage) back.getScene().getWindow();
-			window.setTitle("Connection");
+			window.setTitle("Factures");
 
 			window.setScene(new Scene(subView));
 		} catch (IOException e) {
@@ -71,7 +71,7 @@ public class HomeController {
 			AnchorPane subView = loader.load();
 
 			window = (Stage) back.getScene().getWindow();
-			window.setTitle("Connection");
+			window.setTitle("Clients et Sociétés");
 
 			window.setScene(new Scene(subView));
 		} catch (IOException e) {
@@ -85,7 +85,7 @@ public class HomeController {
 			AnchorPane subView = loader.load();
 
 			window = (Stage) back.getScene().getWindow();
-			window.setTitle("Connection");
+			window.setTitle("Utilisateurs");
 
 			window.setScene(new Scene(subView));
 		} catch (IOException e) {

@@ -6,14 +6,6 @@
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-s
-Csrc/main/java/iramps/mvconstruction/dao/implement/SoldItemsDao.java,7\4\74b88a378b292bab274720ed98e26eb6d6be1a12
-n
->src/main/java/iramps/mvconstruction/dao/implement/BillDao.java,7\c\7c425744c7a4eb7f717eb5142a95209ac56b2943
-x
-Hsrc/main/java/iramps/mvconstruction/controller/mgmt/BillsController.java,7\3\73eeff9b495b5c153ecc78b2d8cb28544a5d9b0c
-o
-?src/main/java/iramps/mvconstruction/singleton/DBConnection.java,b\0\b0cb75922400f1ed3cb47b874caf42fb1561a86c
 k
 ;src/main/java/iramps/mvconstruction/factory/DaoFactory.java,c\a\ca35fd535762e80ddf416ff77da96f28e9287bc3
 `
@@ -22,11 +14,5 @@ k
 -src/main/java/iramps/mvconstruction/Main.java,3\4\3406d6abebcdf15b37850cdc4036bcd0d3e8ab05
 x
 Hsrc/main/java/iramps/mvconstruction/controller/ConnectionController.java,2\4\24528d96860af8150503816e908fd156fcd621cf
-c
-3src/main/java/iramps/mvconstruction/model/Bill.java,a\b\abd2c944518b5fe9de76df709d193f0d7b8d09cd
-h
-8src/main/java/iramps/mvconstruction/model/SoldItems.java,1\6\168f3d00defa733e690f73454b613aa0fae40471
 f
 6src/main/java/iramps/mvconstruction/model/Article.java,b\9\b9b5ade746b1b8e411c6fb2e7c5db2c9c0969456
-r
-Bsrc/main/java/iramps/mvconstruction/controller/HomeController.java,1\b\1bd03d53405efbcd23add27441071d598c1c476c

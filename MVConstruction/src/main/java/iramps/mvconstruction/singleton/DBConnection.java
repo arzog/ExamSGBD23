@@ -9,7 +9,7 @@ public class DBConnection {
 	private static Connection connection;
 	private volatile static DBConnection single;
 	//region properties
-	private final String url = "jdbc:mysql://localhost:3306/construction?autoReconnect=true&useSSL=false";
+	private final String url = "jdbc:mysql://localhost:3306/mvconstruction?autoReconnect=true&useSSL=false";
 	private final String user = "brice";
 	private final String pswd = "brice";
 	//endregion

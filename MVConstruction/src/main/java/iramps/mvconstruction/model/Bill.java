@@ -1,5 +1,8 @@
 package iramps.mvconstruction.model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+
 import java.sql.Date;
 
 public class Bill {
@@ -12,6 +15,12 @@ public class Bill {
 	private Client client;
 	private Company company;
 	private boolean forCompany;
+
+	private BooleanProperty forCompanyProperty;
+	private ObjectProperty<SoldItems> soldItemsProperty;
+	private ObjectProperty<Client> clientProperty;
+	private ObjectProperty<Company> companyProperty;
+	private ObjectProperty<Date> dateProperty;
 	//endregion
 
 	//region constructors
@@ -109,5 +118,65 @@ public class Bill {
 
 	public void setForCompany(boolean forCompany) {
 		this.forCompany = forCompany;
+	}
+
+	public boolean isForCompanyProperty() {
+		return forCompanyProperty.get();
+	}
+
+	public BooleanProperty forCompanyPropertyProperty() {
+		return forCompanyProperty;
+	}
+
+	public void setForCompanyProperty(final boolean forCompanyProperty) {
+		this.forCompanyProperty.set(forCompanyProperty);
+	}
+
+	public SoldItems getSoldItemsProperty() {
+		return soldItemsProperty.get();
+	}
+
+	public ObjectProperty<SoldItems> soldItemsPropertyProperty() {
+		return soldItemsProperty;
+	}
+
+	public void setSoldItemsProperty(final SoldItems soldItemsProperty) {
+		this.soldItemsProperty.set(soldItemsProperty);
+	}
+
+	public Client getClientProperty() {
+		return clientProperty.get();
+	}
+
+	public ObjectProperty<Client> clientPropertyProperty() {
+		return clientProperty;
+	}
+
+	public void setClientProperty(final Client clientProperty) {
+		this.clientProperty.set(clientProperty);
+	}
+
+	public Company getCompanyProperty() {
+		return companyProperty.get();
+	}
+
+	public ObjectProperty<Company> companyPropertyProperty() {
+		return companyProperty;
+	}
+
+	public void setCompanyProperty(final Company companyProperty) {
+		this.companyProperty.set(companyProperty);
+	}
+
+	public Date getDateProperty() {
+		return dateProperty.get();
+	}
+
+	public ObjectProperty<Date> datePropertyProperty() {
+		return dateProperty;
+	}
+
+	public void setDateProperty(final Date dateProperty) {
+		this.dateProperty.set(dateProperty);
 	}
 }

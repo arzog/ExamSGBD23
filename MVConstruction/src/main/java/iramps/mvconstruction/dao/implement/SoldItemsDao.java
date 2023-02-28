@@ -38,7 +38,6 @@ public class SoldItemsDao extends Dao<SoldItems> {
 			});
 			statement.executeBatch();
 			statement.close();
-			System.out.println("success");
 			return true;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -53,7 +52,6 @@ public class SoldItemsDao extends Dao<SoldItems> {
 
 			statement.executeUpdate();
 			statement.close();
-			System.out.println("success");
 			return true;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -67,13 +65,12 @@ public class SoldItemsDao extends Dao<SoldItems> {
 			PreparedStatement statement = connection.prepareStatement("select * from sold_items");
 
 			ResultSet set = statement.executeQuery();
-			statement.close();
 
 			while (set.next()) {
 				Article article = dao.readById(set.getInt("id_article"));
 				items.add(new SoldItems(set.getString("bill_num"), Map.of(article, set.getInt("qtt"))));
 			}
-			System.out.println("success");
+			statement.close();
 			return items;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -83,16 +80,17 @@ public class SoldItemsDao extends Dao<SoldItems> {
 	@Override
 	public SoldItems readById(int id) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from sold_items where id = ?");
+			PreparedStatement statement = connection.prepareStatement("select * from sold_items where id = ?",
+																	  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			statement.setInt(1, id);
 
 			ResultSet set = statement.executeQuery();
-			statement.close();
 
 			if (set.first()) {
 				Article article = dao.readById(set.getInt("id_article"));
 				return new SoldItems(id, set.getString("bill_num"), Map.of(article, set.getInt("qtt")));
 			}
+			statement.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -108,13 +106,12 @@ public class SoldItemsDao extends Dao<SoldItems> {
 			statement.setString(1, name);
 
 			ResultSet set = statement.executeQuery();
-			statement.close();
 
 			if (set.first()) {
 				Article article = dao.readById(set.getInt("id_article"));
 				return new SoldItems(set.getString("bill_num"), Map.of(article, set.getInt("qtt")));
 			}
-			System.out.println("success");
+			statement.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -139,7 +136,6 @@ public class SoldItemsDao extends Dao<SoldItems> {
 			});
 			statement.executeBatch();
 			statement.close();
-			System.out.println("success");
 			return soldItems;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
