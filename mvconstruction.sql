@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `bills` (
 --
 
 INSERT INTO `bills` (`id`, `sold_date`, `id_article`,`qtt`,`bill_num`, `id_user`, `id_client`, `id_company`, `for_company`) VALUES
-(1, "2023-01-06",1, 500, "BeumierBrice_060123_0001", 1, 1, 1, NULL, 0);
+(1, "2023-01-06",1, 500, "BeumierBrice_060123_0001", 1, 1, NULL, 0);
 
 --
 -- Contraintes pour les tables déchargées
@@ -202,10 +202,10 @@ INSERT INTO `bills` (`id`, `sold_date`, `id_article`,`qtt`,`bill_num`, `id_user`
 -- Contraintes pour la table `bills`
 --
 ALTER TABLE `bills`
-  ADD CONSTRAINT `bills_ibfk_1` FOREIGN KEY (`id_sold_items`) REFERENCES `sold_items` (`id`),
   ADD CONSTRAINT `bills_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `bills_ibfk_3` FOREIGN KEY (`id_client`) REFERENCES `clients` (`id`),
-  ADD CONSTRAINT `bills_ibfk_4` FOREIGN KEY (`id_company`) REFERENCES `companies` (`id`);
+  ADD CONSTRAINT `bills_ibfk_4` FOREIGN KEY (`id_company`) REFERENCES `companies` (`id`),
+  ADD CONSTRAINT `bills_ibfk_5` FOREIGN KEY (`id_article`) REFERENCES `addresses`(`id`);
 
 --
 -- Contraintes pour la table `clients`
@@ -219,11 +219,7 @@ ALTER TABLE `clients`
 ALTER TABLE `companies`
   ADD CONSTRAINT `companies_ibfk_1` FOREIGN KEY (`id_address`) REFERENCES `addresses` (`id`);
 
---
--- Contraintes pour la table `sold_items`
---
-ALTER TABLE `sold_items`
-  ADD CONSTRAINT `sold_items_ibfk_1` FOREIGN KEY (`id_article`) REFERENCES `articles` (`id`);
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
